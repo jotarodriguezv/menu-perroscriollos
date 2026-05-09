@@ -716,6 +716,76 @@
     </div>
   </div>
 
+  <!-- MODAL DE PERSONALIZACIÓN -->
+  <div id="customOverlay" style="
+    position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:400;
+    display:flex;align-items:flex-end;justify-content:center;
+    opacity:0;pointer-events:none;transition:opacity 0.25s;">
+    <div id="customModal" style="
+      width:100%;max-width:480px;max-height:88vh;overflow-y:auto;
+      background:#1a1a1a;border-top:3px solid #FF0000;border-radius:20px 20px 0 0;
+      padding:20px;transform:translateY(100%);transition:transform 0.3s ease;">
+
+      <!-- Header -->
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid #333;">
+        <div>
+          <div id="customName" style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#FF0000;text-shadow:0 0 8px rgba(255,0,0,0.5)"></div>
+          <div id="customBasePrice" style="font-size:13px;color:#FFD700;font-weight:700;"></div>
+        </div>
+        <button onclick="closeCustomModal()" style="background:none;border:none;color:#fff;font-size:26px;cursor:pointer;">✕</button>
+      </div>
+
+      <!-- Precio total en tiempo real -->
+      <div style="background:#252525;border:2px solid #FF0000;border-radius:8px;padding:12px 16px;margin-bottom:20px;
+        display:flex;justify-content:space-between;align-items:center;box-shadow:0 0 12px rgba(255,0,0,0.3);">
+        <span style="font-size:13px;color:#b0b0b0;">Total:</span>
+        <span id="customTotal" style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:#FFD700;text-shadow:0 0 8px rgba(255,215,0,0.5)">$0</span>
+      </div>
+
+      <!-- Sección: Toppings Platino -->
+      <div id="secToppingsPlatino" style="margin-bottom:20px;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#FF0000;margin-bottom:4px;letter-spacing:1px;">
+          ⭐ TOPPINGS PLATINO
+        </div>
+        <div style="font-size:11px;color:#b0b0b0;margin-bottom:10px;">Elige los que quieras — sin costo adicional</div>
+        <div id="listToppingsPlatino" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
+      </div>
+
+      <!-- Sección: Toppings Premium -->
+      <div id="secToppingsPremium" style="margin-bottom:20px;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#FF0000;margin-bottom:4px;letter-spacing:1px;">
+          🔥 TOPPINGS PREMIUM
+        </div>
+        <div style="font-size:11px;color:#b0b0b0;margin-bottom:10px;">+ $4.000 c/u</div>
+        <div id="listToppingsPremium" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
+      </div>
+
+      <!-- Sección: Salsas -->
+      <div id="secSalsas" style="margin-bottom:20px;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#FF0000;margin-bottom:4px;letter-spacing:1px;">
+          🥫 SALSAS
+        </div>
+        <div style="font-size:11px;color:#b0b0b0;margin-bottom:10px;">Elige las que quieras — sin costo adicional</div>
+        <div id="listSalsas" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
+      </div>
+
+      <!-- Cantidad -->
+      <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:20px;padding:12px;background:#252525;border-radius:8px;">
+        <button id="btnMenos" style="background:#FF0000;color:#FFD700;border:none;width:36px;height:36px;border-radius:50%;font-size:20px;font-weight:700;cursor:pointer;box-shadow:0 0 8px rgba(255,0,0,0.4);">−</button>
+        <span id="customQty" style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;min-width:40px;text-align:center;">1</span>
+        <button id="btnMas" style="background:#FF0000;color:#FFD700;border:none;width:36px;height:36px;border-radius:50%;font-size:20px;font-weight:700;cursor:pointer;box-shadow:0 0 8px rgba(255,0,0,0.4);">+</button>
+      </div>
+
+      <!-- Botón agregar al carrito -->
+      <button id="btnAgregarCarrito" style="
+        width:100%;padding:14px;background:#FF0000;color:#FFD700;border:none;border-radius:8px;
+        font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;cursor:pointer;
+        box-shadow:0 0 15px rgba(255,0,0,0.5);transition:all 0.2s;">
+        🛒 AGREGAR AL CARRITO
+      </button>
+    </div>
+  </div>
+  
   <!-- MAIN CONTENT -->
   <div class="main">
     <div class="hero">
@@ -733,134 +803,278 @@
     const SUPABASE_URL = 'https://tllpmdhkdlqoqpnqmuwn.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_PqQsGWYjDAu8oq9ABB1hnQ_658qW8RB';
     const RESTAURANTE_SLUG = 'perroscriollos';
+    const WHATSAPP_NUMBER  = '573043632573';
+    const RESTAURANT_NAME  = 'Perros Criollos';
 
-    // ── CONFIGURACIÓN DEL RESTAURANTE ──
-    const WHATSAPP_NUMBER = '573043632573'; // Cambia por el número real del cliente
-    const RESTAURANT_NAME = 'Perros Criollos';
+    // ── ESTADO ──
+    let restaurante = null;
+    let categorias  = [];
+    let productos   = [];
+    let cart        = [];
 
-    // ── ESTADO GLOBAL ──
-    let restaurante   = null;
-    let categorias    = [];
-    let productos     = [];
-    let cart          = [];
+    // Estado del modal de personalización
+    let customProduct      = null;
+    let customQty          = 1;
+    let selectedPlatino    = new Set();
+    let selectedPremium    = new Set();
+    let selectedSalsas     = new Set();
 
-    // ── API SUPABASE ──
+    // ── API ──
     async function sbFetch(tabla, params = '') {
       const res = await fetch(`${SUPABASE_URL}/rest/v1/${tabla}?${params}`, {
-        headers: {
-          'apikey': SUPABASE_KEY,
-          'Authorization': `Bearer ${SUPABASE_KEY}`
-        }
+        headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
       });
-      if (!res.ok) throw new Error(`Error ${res.status} en ${tabla}`);
+      if (!res.ok) throw new Error(`Error ${res.status}`);
       return res.json();
     }
 
     // ── INIT ──
     async function init() {
       try {
-        // 1. Datos del restaurante
         const restData = await sbFetch('restaurantes', `slug=eq.${RESTAURANTE_SLUG}&select=*`);
-        if (!restData.length) throw new Error('Restaurante no encontrado');
+        if (!restData.length) throw new Error('No encontrado');
         restaurante = restData[0];
 
-        // Verificar si está activo
         if (restaurante.activo === false) {
           document.getElementById('mainContent').innerHTML = `
             <div style="text-align:center;padding:80px 20px;">
               <div style="font-size:48px;margin-bottom:16px;">🔒</div>
-              <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--primary);margin-bottom:8px;">Servicio no disponible</div>
-              <div style="font-size:14px;color:var(--text-muted)">Este menú no está disponible en este momento.</div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--primary);">Servicio no disponible</div>
+              <div style="font-size:14px;color:var(--text-muted);margin-top:8px;">Este menú no está disponible en este momento.</div>
             </div>`;
           return;
         }
 
-        // 2. Categorías ordenadas
         categorias = await sbFetch('categorias',
-          `restaurante_id=eq.${restaurante.id}&select=*&order=orden.asc`
-        );
-
-        // 3. Productos disponibles
+          `restaurante_id=eq.${restaurante.id}&select=*&order=orden.asc`);
         productos = await sbFetch('productos',
-          `restaurante_id=eq.${restaurante.id}&disponible=eq.true&select=*&order=precio_numerico.asc`
-        );
+          `restaurante_id=eq.${restaurante.id}&disponible=eq.true&select=*&order=precio_numerico.asc`);
 
         buildSidebar();
         buildMenu();
         loadCartFromStorage();
         initScrollEffects();
+        initCustomModalEvents();
 
-      } catch (e) {
-        console.error('Error cargando menú:', e);
-        document.getElementById('mainContent').innerHTML = `
-          <p style="text-align:center;padding:40px;color:var(--text-muted)">
-            No se pudo cargar el menú. Intenta de nuevo.
-          </p>`;
+      } catch(e) {
+        console.error(e);
+        document.getElementById('mainContent').innerHTML =
+          `<p style="text-align:center;padding:40px;color:var(--text-muted)">No se pudo cargar el menú.</p>`;
       }
     }
 
-    // ── CARRITO - STORAGE ──
+    // ── MODAL PERSONALIZACIÓN ──
+    function openCustomModal(productId) {
+      const p = productos.find(pr => pr.id === productId);
+      if (!p) return;
+      customProduct   = p;
+      customQty       = 1;
+      selectedPlatino = new Set();
+      selectedPremium = new Set();
+      selectedSalsas  = new Set();
+
+      const attr = p.atributos || {};
+      document.getElementById('customName').textContent      = p.nombre;
+      document.getElementById('customBasePrice').textContent = `Precio base: $${p.precio_numerico.toLocaleString('es-CO')}`;
+      document.getElementById('customQty').textContent       = '1';
+
+      // Toppings platino
+      const listPlatino = document.getElementById('listToppingsPlatino');
+      const secPlatino  = document.getElementById('secToppingsPlatino');
+      listPlatino.innerHTML = '';
+      if (attr.toppings_platino?.length) {
+        secPlatino.style.display = 'block';
+        attr.toppings_platino.forEach(t => {
+          listPlatino.appendChild(mkChipModal(t, () => {
+            if (selectedPlatino.has(t)) selectedPlatino.delete(t);
+            else selectedPlatino.add(t);
+            updateCustomTotal();
+          }));
+        });
+      } else { secPlatino.style.display = 'none'; }
+
+      // Toppings premium
+      const listPremium = document.getElementById('listToppingsPremium');
+      const secPremium  = document.getElementById('secToppingsPremium');
+      listPremium.innerHTML = '';
+      if (attr.toppings_premium?.length) {
+        secPremium.style.display = 'block';
+        attr.toppings_premium.forEach(t => {
+          listPremium.appendChild(mkChipModal(
+            `${t.nombre} (+$${t.precio.toLocaleString('es-CO')})`,
+            () => {
+              if (selectedPremium.has(t.nombre)) selectedPremium.delete(t.nombre);
+              else selectedPremium.add(t.nombre);
+              updateCustomTotal();
+            }
+          ));
+        });
+      } else { secPremium.style.display = 'none'; }
+
+      // Salsas
+      const listSalsas = document.getElementById('listSalsas');
+      const secSalsas  = document.getElementById('secSalsas');
+      listSalsas.innerHTML = '';
+      if (attr.salsas?.length) {
+        secSalsas.style.display = 'block';
+        attr.salsas.forEach(s => {
+          listSalsas.appendChild(mkChipModal(s, () => {
+            if (selectedSalsas.has(s)) selectedSalsas.delete(s);
+            else selectedSalsas.add(s);
+            updateCustomTotal();
+          }));
+        });
+      } else { secSalsas.style.display = 'none'; }
+
+      updateCustomTotal();
+
+      // Mostrar modal
+      const overlay = document.getElementById('customOverlay');
+      const modal   = document.getElementById('customModal');
+      overlay.style.opacity = '1';
+      overlay.style.pointerEvents = 'all';
+      modal.style.transform = 'translateY(0)';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeCustomModal() {
+      const overlay = document.getElementById('customOverlay');
+      const modal   = document.getElementById('customModal');
+      overlay.style.opacity = '0';
+      overlay.style.pointerEvents = 'none';
+      modal.style.transform = 'translateY(100%)';
+      document.body.style.overflow = '';
+    }
+
+    function mkChipModal(label, onClick) {
+      const chip = document.createElement('button');
+      chip.type = 'button';
+      chip.textContent = label;
+      chip.style.cssText = `
+        padding:7px 12px;border-radius:20px;border:1px solid #333;background:#252525;
+        color:#b0b0b0;font-family:'Poppins',sans-serif;font-size:12px;cursor:pointer;
+        transition:all 0.18s;white-space:nowrap;`;
+      chip.addEventListener('click', () => {
+        const active = chip.dataset.active === 'true';
+        chip.dataset.active = !active;
+        if (!active) {
+          chip.style.border      = '1px solid #FF0000';
+          chip.style.color       = '#FF0000';
+          chip.style.background  = 'rgba(255,0,0,0.15)';
+          chip.style.boxShadow   = '0 0 8px rgba(255,0,0,0.3)';
+        } else {
+          chip.style.border      = '1px solid #333';
+          chip.style.color       = '#b0b0b0';
+          chip.style.background  = '#252525';
+          chip.style.boxShadow   = 'none';
+        }
+        onClick();
+      });
+      return chip;
+    }
+
+    function updateCustomTotal() {
+      if (!customProduct) return;
+      const attr         = customProduct.atributos || {};
+      const precioBase   = customProduct.precio_numerico;
+      const extrasPrec   = (attr.toppings_premium || [])
+        .filter(t => selectedPremium.has(t.nombre))
+        .reduce((sum, t) => sum + t.precio, 0);
+      const totalUnit    = precioBase + extrasPrec;
+      const total        = totalUnit * customQty;
+      document.getElementById('customTotal').textContent = '$' + total.toLocaleString('es-CO');
+    }
+
+    function initCustomModalEvents() {
+      document.getElementById('btnMenos').addEventListener('click', () => {
+        if (customQty > 1) { customQty--; document.getElementById('customQty').textContent = customQty; updateCustomTotal(); }
+      });
+      document.getElementById('btnMas').addEventListener('click', () => {
+        customQty++; document.getElementById('customQty').textContent = customQty; updateCustomTotal();
+      });
+      document.getElementById('btnAgregarCarrito').addEventListener('click', () => {
+        addCustomToCart();
+      });
+      // Cerrar al tocar fuera del modal
+      document.getElementById('customOverlay').addEventListener('click', (e) => {
+        if (e.target.id === 'customOverlay') closeCustomModal();
+      });
+    }
+
+    function addCustomToCart() {
+      if (!customProduct) return;
+      const attr       = customProduct.atributos || {};
+      const extrasPrec = (attr.toppings_premium || [])
+        .filter(t => selectedPremium.has(t.nombre))
+        .reduce((sum, t) => sum + t.precio, 0);
+      const precioUnit = customProduct.precio_numerico + extrasPrec;
+
+      // Construir descripción de la personalización
+      const partes = [];
+      if (selectedPlatino.size) partes.push(`Toppings: ${[...selectedPlatino].join(', ')}`);
+      if (selectedPremium.size) partes.push(`Premium: ${[...selectedPremium].join(', ')}`);
+      if (selectedSalsas.size)  partes.push(`Salsas: ${[...selectedSalsas].join(', ')}`);
+      const descripcion = partes.join(' | ');
+
+      // Usar una key única que incluya la personalización
+      const cartKey = `${customProduct.id}__${descripcion}`;
+      const existing = cart.find(i => i.cartKey === cartKey);
+      if (existing) {
+        existing.cantidad += customQty;
+      } else {
+        cart.push({
+          cartKey,
+          id:         customProduct.id,
+          name:       customProduct.nombre,
+          price:      precioUnit,
+          cantidad:   customQty,
+          descripcion
+        });
+      }
+
+      saveCartToStorage();
+      updateCartUI();
+      closeCustomModal();
+
+      // Feedback visual en el botón del carrito
+      const cartBtn = document.getElementById('cartBtn');
+      cartBtn.style.transform = 'scale(1.2)';
+      setTimeout(() => cartBtn.style.transform = 'scale(1)', 200);
+    }
+
+    // ── CARRITO ──
     function saveCartToStorage() {
       localStorage.setItem(`${RESTAURANTE_SLUG}_cart`, JSON.stringify(cart));
     }
 
     function loadCartFromStorage() {
       const saved = localStorage.getItem(`${RESTAURANTE_SLUG}_cart`);
-      if (saved) {
-        cart = JSON.parse(saved);
-        updateCartUI();
-      }
+      if (saved) { cart = JSON.parse(saved); updateCartUI(); }
     }
 
-    // ── CARRITO - AGREGAR ──
-    function addToCart(productId) {
-      const product = productos.find(p => p.id === productId);
-      if (!product) return;
-      const existing = cart.find(item => item.id === productId);
-      if (existing) {
-        existing.cantidad++;
-      } else {
-        cart.push({
-          id: product.id,
-          name: product.nombre,
-          price: product.precio_numerico,
-          cantidad: 1
-        });
-      }
-      saveCartToStorage();
-      updateCartUI();
-    }
-
-    // ── CARRITO - ACTUALIZAR CANTIDAD ──
-    function updateQuantity(productId, change) {
-      const item = cart.find(p => p.id === productId);
+    function updateQuantity(cartKey, change) {
+      const item = cart.find(i => i.cartKey === cartKey);
       if (item) {
         item.cantidad += change;
-        if (item.cantidad <= 0) {
-          cart = cart.filter(p => p.id !== productId);
-        }
-        saveCartToStorage();
-        updateCartUI();
+        if (item.cantidad <= 0) cart = cart.filter(i => i.cartKey !== cartKey);
+        saveCartToStorage(); updateCartUI();
       }
     }
 
-    // ── CARRITO - ELIMINAR ──
-    function removeFromCart(productId) {
-      cart = cart.filter(p => p.id !== productId);
-      saveCartToStorage();
-      updateCartUI();
+    function removeFromCart(cartKey) {
+      cart = cart.filter(i => i.cartKey !== cartKey);
+      saveCartToStorage(); updateCartUI();
     }
 
-    // ── CARRITO - ACTUALIZAR UI ──
     function updateCartUI() {
-      const count = cart.reduce((sum, item) => sum + item.cantidad, 0);
+      const count = cart.reduce((sum, i) => sum + i.cantidad, 0);
       document.getElementById('cartCount').textContent = count;
 
       const cartItemsDiv = document.getElementById('cartItems');
       const cartEmptyDiv = document.getElementById('cartEmpty');
       const checkoutBtn  = document.getElementById('checkoutBtn');
 
-      if (cart.length === 0) {
+      if (!cart.length) {
         cartItemsDiv.innerHTML = '';
         cartEmptyDiv.style.display = 'flex';
         checkoutBtn.style.display  = 'none';
@@ -874,6 +1088,7 @@
           div.innerHTML = `
             <div class="cart-item-info">
               <div class="cart-item-name">${item.name}</div>
+              ${item.descripcion ? `<div style="font-size:11px;color:#888;margin-top:2px;line-height:1.4">${item.descripcion}</div>` : ''}
               <div class="cart-item-price">$${(item.price * item.cantidad).toLocaleString('es-CO')}</div>
             </div>
             <div class="cart-item-controls">
@@ -883,18 +1098,17 @@
               <button class="cart-item-remove">✕</button>
             </div>
           `;
-          div.querySelectorAll('.cart-item-btn')[0].onclick = () => updateQuantity(item.id, -1);
-          div.querySelectorAll('.cart-item-btn')[1].onclick = () => updateQuantity(item.id, 1);
-          div.querySelector('.cart-item-remove').onclick    = () => removeFromCart(item.id);
+          div.querySelectorAll('.cart-item-btn')[0].onclick = () => updateQuantity(item.cartKey, -1);
+          div.querySelectorAll('.cart-item-btn')[1].onclick = () => updateQuantity(item.cartKey, 1);
+          div.querySelector('.cart-item-remove').onclick    = () => removeFromCart(item.cartKey);
           cartItemsDiv.appendChild(div);
         });
       }
 
-      const total = cart.reduce((sum, item) => sum + (item.price * item.cantidad), 0);
+      const total = cart.reduce((sum, i) => sum + i.price * i.cantidad, 0);
       document.getElementById('cartTotal').textContent = '$' + total.toLocaleString('es-CO');
     }
 
-    // ── CARRITO - TOGGLE ──
     function toggleCart() {
       document.getElementById('cartSidebar').classList.toggle('open');
       document.getElementById('overlay').classList.toggle('open');
@@ -917,63 +1131,50 @@
       const total   = cart.reduce((sum, i) => sum + i.price * i.cantidad, 0);
       summary.innerHTML = cart.map(item => `
         <div class="checkout-summary-item">
-          <span>${item.name} x${item.cantidad}</span>
+          <span>${item.name} x${item.cantidad}${item.descripcion ? '<br><small style="color:#666">' + item.descripcion + '</small>' : ''}</span>
           <span>$${(item.price * item.cantidad).toLocaleString('es-CO')}</span>
         </div>
       `).join('') + `
         <div class="checkout-summary-total">
-          <span>Total</span>
-          <span>$${total.toLocaleString('es-CO')}</span>
+          <span>Total</span><span>$${total.toLocaleString('es-CO')}</span>
         </div>`;
     }
 
-    // ── WHATSAPP ORDER ──
+    // ── WHATSAPP ──
     function sendWhatsAppOrder(event) {
       event.preventDefault();
-
       const name    = document.getElementById('clientName').value;
       const address = document.getElementById('clientAddress').value;
-      const barrio  = document.getElementById('clientBarrio')?.value || '';
-      const phone   = document.getElementById('clientPhone')?.value || '';
       const payment = document.getElementById('paymentMethod').value;
-      const notas   = document.getElementById('clientNotas')?.value || '';
 
-      let message = `🍟 *Pedido - ${RESTAURANT_NAME}*\n\n`;
-      message += `👤 *Cliente:* ${name}\n`;
-      if (phone)   message += `📞 *Teléfono:* ${phone}\n`;
-      message += `📍 *Dirección:* ${address}\n`;
-      if (barrio)  message += `🏘 *Barrio:* ${barrio}\n`;
-      message += `💳 *Pago:* ${payment}\n`;
-      if (notas)   message += `📝 *Notas:* ${notas}\n`;
-      message += `\n🛒 *Pedido:*\n`;
+      let msg = `🌭 *Pedido - ${RESTAURANT_NAME}*\n\n`;
+      msg += `👤 *Cliente:* ${name}\n`;
+      msg += `📍 *Dirección:* ${address}\n`;
+      msg += `💳 *Pago:* ${payment}\n\n`;
+      msg += `🛒 *Pedido:*\n`;
 
       cart.forEach(item => {
-        message += `• ${item.name} x${item.cantidad} = $${(item.price * item.cantidad).toLocaleString('es-CO')}\n`;
+        msg += `• *${item.name}* x${item.cantidad} = $${(item.price * item.cantidad).toLocaleString('es-CO')}\n`;
+        if (item.descripcion) msg += `  _${item.descripcion}_\n`;
       });
 
       const total = cart.reduce((sum, i) => sum + i.price * i.cantidad, 0);
-      message += `\n*TOTAL: $${total.toLocaleString('es-CO')}*`;
+      msg += `\n*TOTAL: $${total.toLocaleString('es-CO')}*`;
 
-      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-      window.open(url, '_blank');
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
 
-      // Limpiar carrito
-      cart = [];
-      saveCartToStorage();
-      updateCartUI();
-      closeCheckout();
+      cart = []; saveCartToStorage(); updateCartUI(); closeCheckout();
       document.getElementById('clientName').value    = '';
       document.getElementById('clientAddress').value = '';
     }
 
-    // ── SIDEBAR MENÚ ──
+    // ── SIDEBAR ──
     function buildSidebar() {
       const nav = document.getElementById('sidebarNav');
       nav.innerHTML = '';
       let first = true;
       categorias.forEach(cat => {
-        const tieneProd = productos.some(p => p.categoria_id === cat.id);
-        if (!tieneProd) return;
+        if (!productos.some(p => p.categoria_id === cat.id)) return;
         const btn = document.createElement('button');
         btn.className = 'sidebar-link' + (first ? ' active' : '');
         btn.textContent = `${cat.emoji || ''} ${cat.nombre}`.trim();
@@ -989,11 +1190,10 @@
       });
     }
 
-    // ── CONSTRUIR MENÚ ──
+    // ── MENÚ ──
     function buildMenu() {
       const main = document.getElementById('mainContent');
       main.innerHTML = '';
-
       categorias.forEach(cat => {
         const prods = productos.filter(p => p.categoria_id === cat.id);
         if (!prods.length) return;
@@ -1001,40 +1201,60 @@
         const section = document.createElement('div');
         section.className = 'category-section';
         section.id = `cat-${cat.id}`;
-
-        const header = document.createElement('div');
-        header.className = 'category-header';
-        header.innerHTML = `
-          <h2 class="category-title">${cat.emoji || ''} ${cat.nombre}</h2>
-          <div class="category-line"></div>
+        section.innerHTML = `
+          <div class="category-header">
+            <h2 class="category-title">${cat.emoji || ''} ${cat.nombre}</h2>
+            <div class="category-line"></div>
+          </div>
         `;
-        section.appendChild(header);
 
         const grid = document.createElement('div');
         grid.className = 'products-grid';
 
         prods.forEach(p => {
+          const tieneOpciones = p.atributos &&
+            (p.atributos.toppings_platino?.length || p.atributos.toppings_premium?.length || p.atributos.salsas?.length);
+
           const card = document.createElement('div');
           card.className = 'product-card';
+          card.style.cursor = 'pointer';
 
           const imgHtml = p.imagen_url
             ? `<img src="${p.imagen_url}" alt="${p.nombre}" class="card-img">`
-            : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#444;font-size:32px;">🌭</div>`;
+            : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:40px;">🌭</div>`;
 
           card.innerHTML = `
             <div class="card-img-wrap">
               ${imgHtml}
-              <button class="card-add-btn">+</button>
+              <button class="card-add-btn" title="${tieneOpciones ? 'Personalizar' : 'Agregar'}">
+                ${tieneOpciones ? '⚙' : '+'}
+              </button>
             </div>
             <div class="card-body">
               <div class="card-name">${p.nombre}</div>
               <div class="card-price">$${p.precio_numerico.toLocaleString('es-CO')}</div>
+              ${p.descripcion ? `<div style="font-size:11px;color:#888;margin-top:4px;">${p.descripcion}</div>` : ''}
+              ${tieneOpciones ? '<div style="font-size:10px;color:#FF0000;margin-top:4px;letter-spacing:0.5px;">Toca para personalizar</div>' : ''}
             </div>
           `;
-          card.querySelector('.card-add-btn').addEventListener('click', (e) => {
-            e.stopPropagation();
-            addToCart(p.id);
+
+          // Click en la card o en el botón
+          card.addEventListener('click', () => {
+            if (tieneOpciones) {
+              openCustomModal(p.id);
+            } else {
+              // Producto simple sin opciones — agregar directo
+              const existing = cart.find(i => i.cartKey === p.id);
+              if (existing) existing.cantidad++;
+              else cart.push({ cartKey: p.id, id: p.id, name: p.nombre, price: p.precio_numerico, cantidad: 1, descripcion: '' });
+              saveCartToStorage(); updateCartUI();
+              const btn = card.querySelector('.card-add-btn');
+              btn.textContent = '✓';
+              btn.style.background = '#00cc66';
+              setTimeout(() => { btn.textContent = '+'; btn.style.background = '#FF0000'; }, 800);
+            }
           });
+
           grid.appendChild(card);
         });
 
@@ -1043,23 +1263,21 @@
       });
     }
 
-    // ── SCROLL EFFECTS ──
+    // ── SCROLL ──
     function initScrollEffects() {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             const catId = entry.target.id.replace('cat-', '');
-            document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
             const cat = categorias.find(c => c.id === catId);
-            if (cat) {
-              document.querySelectorAll('.sidebar-link').forEach(btn => {
-                if (btn.textContent.trim().includes(cat.nombre)) btn.classList.add('active');
-              });
-            }
+            if (!cat) return;
+            document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+            document.querySelectorAll('.sidebar-link').forEach(btn => {
+              if (btn.textContent.trim().includes(cat.nombre)) btn.classList.add('active');
+            });
           }
         });
       }, { rootMargin: '-30% 0px -60% 0px' });
-
       document.querySelectorAll('.category-section').forEach(s => observer.observe(s));
     }
 
@@ -1068,20 +1286,18 @@
       document.getElementById('sidebar').classList.toggle('open');
       document.getElementById('overlay').classList.toggle('open');
     });
-
     document.getElementById('closeMenu').addEventListener('click', () => {
       document.getElementById('sidebar').classList.remove('open');
       document.getElementById('overlay').classList.remove('open');
     });
-
     document.getElementById('overlay').addEventListener('click', () => {
       document.getElementById('sidebar').classList.remove('open');
       document.getElementById('cartSidebar').classList.remove('open');
       document.getElementById('overlay').classList.remove('open');
     });
 
-    // ── ARRANCAR ──
     window.addEventListener('DOMContentLoaded', init);
   </script>
+
 </body>
 </html>
