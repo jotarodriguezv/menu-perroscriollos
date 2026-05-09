@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Perros Criollos — Menú Digital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #FF0000;
+      --secondary: #FFD700;
+      --accent-purple: #9D00FF;
+      --accent-green: #00FF00;
+      --dark: #0a0a0a;
+      --surface: #1a1a1a;
+      --card: #252525;
+      --border: #333333;
+      --text: #ffffff;
+      --text-muted: #b0b0b0;
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--dark);
+      background-image: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+      color: var(--text);
+      font-family: 'Poppins', sans-serif;
+      font-size: 14px;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 10, 10, 0.85);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .header, .nav-sticky, .main, .footer {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: var(--surface);
+      border-bottom: 3px solid var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      z-index: 100;
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+    }
+
+    .menu-toggle {
+      background: none;
+      border: none;
+      color: var(--primary);
+      font-size: 24px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 8px;
+      transition: transform 0.2s;
+    }
+
+    .menu-toggle:active { transform: scale(0.95); }
+
+    .menu-toggle span {
+      display: block;
+      width: 24px;
+      height: 3px;
+      background: var(--primary);
+      border-radius: 2px;
+      box-shadow: 0 0 5px var(--primary);
+    }
+
+    .logo-header {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--primary);
+      text-transform: uppercase;
+      text-shadow: 0 0 10px var(--primary), 0 0 20px rgba(255, 0, 0, 0.6);
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── CARRITO BOTÓN ── */
+    .cart-btn {
+      position: relative;
+      background: none;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      transition: all 0.2s;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+    }
+
+    .cart-btn:hover {
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+      transform: scale(1.05);
+    }
+
+    .cart-btn:active { transform: scale(0.95); }
+
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: var(--primary);
+      color: var(--secondary);
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      box-shadow: 0 0 8px var(--primary);
+    }
+
+    /* ── SIDEBAR MENU ── */
+    .sidebar {
+      position: fixed;
+      left: -100%;
+      top: 0;
+      width: 75%;
+      max-width: 300px;
+      height: 100vh;
+      background: rgba(10, 10, 10, 0.98);
+      backdrop-filter: blur(10px);
+      border-right: 3px solid var(--primary);
+      z-index: 200;
+      transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow-y: auto;
+      padding-top: 60px;
+    }
+
+    .sidebar.open { left: 0; }
+
+    .sidebar-header {
+      padding: 20px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .sidebar-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      color: var(--primary);
+      text-transform: uppercase;
+      text-shadow: 0 0 8px var(--primary);
+    }
+
+    .close-menu {
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    .sidebar-nav { display: flex; flex-direction: column; }
+
+    .sidebar-link {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      text-transform: uppercase;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      width: 100%;
+      text-align: left;
+      transition: all 0.2s;
+    }
+
+    .sidebar-link:hover,
+    .sidebar-link:active,
+    .sidebar-link.active {
+      background: rgba(255, 0, 0, 0.15);
+      color: var(--primary);
+      border-left: 4px solid var(--primary);
+      padding-left: 16px;
+      text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+    }
+
+    /* ── OVERLAY ── */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 150;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .overlay.open { opacity: 1; pointer-events: all; }
+
+    /* ── MAIN CONTENT ── */
+    .main {
+      margin-top: 60px;
+      padding: 20px 12px 80px;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero { text-align: center; margin-bottom: 30px; padding: 20px 0; }
+    .hero-logo { width: 120px; height: 120px; margin: 0 auto 16px; object-fit: contain; filter: drop-shadow(0 0 10px var(--primary)); }
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 42px;
+      letter-spacing: 3px;
+      color: var(--primary);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      text-shadow: 0 0 15px var(--primary), 0 0 30px rgba(255, 0, 0, 0.4);
+    }
+    .hero-subtitle { font-size: 12px; color: var(--secondary); letter-spacing: 1px; text-transform: uppercase; font-weight: 600; }
+
+    /* ── CATEGORÍA SECCIÓN ── */
+    .category-section { margin-bottom: 40px; }
+    .category-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+    .category-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 26px;
+      color: var(--primary);
+      text-transform: uppercase;
+      text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+    }
+    .category-line { flex: 1; height: 2px; background: linear-gradient(90deg, var(--primary) 0%, transparent 100%); box-shadow: 0 0 5px var(--primary); }
+
+    /* ── GRID PRODUCTOS ── */
+    .products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    @media (min-width: 768px) { .products-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; } }
+
+    /* ── CARD PRODUCTO ── */
+    .product-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 2px solid var(--border);
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+    }
+
+    .product-card:hover {
+      border-color: var(--primary);
+      box-shadow: 0 0 12px rgba(255, 0, 0, 0.4);
+      transform: translateY(-2px);
+    }
+    .product-card:active { transform: scale(0.97); border-color: var(--primary); box-shadow: 0 0 15px var(--primary); }
+
+    .card-img-wrap { position: relative; width: 100%; aspect-ratio: 1 / 1; background: var(--surface); overflow: hidden; }
+    .card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+    .product-card:hover .card-img { transform: scale(1.05); }
+
+    .card-body { padding: 12px; }
+    .card-name { font-family: 'Bebas Neue', sans-serif; font-size: 14px; color: var(--text); margin-bottom: 4px; text-transform: uppercase; transition: color 0.2s; }
+    .product-card:hover .card-name { color: var(--primary); text-shadow: 0 0 5px rgba(255, 0, 0, 0.4); }
+    .card-price { font-size: 13px; font-weight: 700; color: var(--secondary); }
+
+    /* ── BOTÓN AGREGAR ── */
+    .card-add-btn {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: var(--secondary);
+      border: none;
+      font-size: 20px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    }
+
+    .card-add-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 15px var(--primary);
+    }
+
+    .card-add-btn:active { transform: scale(0.95); }
+
+    /* ── CARRITO SIDEBAR ── */
+    .cart-sidebar {
+      position: fixed;
+      right: -100%;
+      top: 0;
+      width: 100%;
+      max-width: 350px;
+      height: 100vh;
+      background: var(--surface);
+      border-left: 3px solid var(--primary);
+      z-index: 250;
+      transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      box-shadow: -0 0 20px rgba(255, 0, 0, 0.3);
+    }
+
+    .cart-sidebar.open { right: 0; }
+
+    .cart-header {
+      padding: 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .cart-header h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px;
+      color: var(--primary);
+    }
+
+    .close-cart {
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .cart-items {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px;
+    }
+
+    .cart-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .cart-item-info {
+      flex: 1;
+    }
+
+    .cart-item-name {
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .cart-item-price {
+      color: var(--secondary);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .cart-item-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .cart-item-btn {
+      background: var(--primary);
+      color: var(--secondary);
+      border: none;
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: all 0.2s;
+    }
+
+    .cart-item-btn:hover { transform: scale(1.1); }
+
+    .cart-item-qty {
+      width: 30px;
+      text-align: center;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .cart-item-remove {
+      background: rgba(255, 0, 0, 0.2);
+      color: var(--primary);
+      border: none;
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: all 0.2s;
+    }
+
+    .cart-item-remove:hover { background: rgba(255, 0, 0, 0.4); }
+
+    .cart-empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 200px;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    .cart-footer {
+      padding: 16px;
+      border-top: 1px solid var(--border);
+      background: var(--card);
+    }
+
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .cart-total span { color: var(--text-muted); }
+    .cart-total strong { color: var(--secondary); text-shadow: 0 0 8px rgba(255, 215, 0, 0.5); }
+
+    .btn-checkout {
+      width: 100%;
+      padding: 12px;
+      background: var(--primary);
+      color: var(--secondary);
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+    }
+
+    .btn-checkout:hover { transform: scale(1.02); box-shadow: 0 0 20px var(--primary); }
+    .btn-checkout:active { transform: scale(0.98); }
+
+    /* ── MODAL CHECKOUT ── */
+    .checkout-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 300;
+      display: flex;
+      align-items: flex-end;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+
+    .checkout-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .checkout-modal {
+      width: 100%;
+      max-width: 100%;
+      background: var(--surface);
+      border-top: 3px solid var(--primary);
+      border-radius: 20px 20px 0 0;
+      padding: 20px;
+      max-height: 90vh;
+      overflow-y: auto;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+    }
+
+    .checkout-overlay.open .checkout-modal {
+      transform: translateY(0);
+    }
+
+    @media (min-width: 768px) {
+      .checkout-overlay { align-items: center; }
+      .checkout-modal {
+        max-width: 500px;
+        border-radius: 16px;
+        transform: translateY(20px);
+      }
+      .checkout-overlay.open .checkout-modal { transform: translateY(0); }
+    }
+
+    .checkout-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .checkout-header h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      color: var(--primary);
+    }
+
+    .close-checkout {
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: var(--text);
+      font-size: 13px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 10px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 8px rgba(255, 0, 0, 0.3);
+    }
+
+    .checkout-summary {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 16px;
+      font-size: 12px;
+    }
+
+    .checkout-summary-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+      color: var(--text-muted);
+    }
+
+    .checkout-summary-total {
+      display: flex;
+      justify-content: space-between;
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+      color: var(--secondary);
+      font-weight: 700;
+    }
+
+    .btn-send-order {
+      width: 100%;
+      padding: 14px;
+      background: var(--primary);
+      color: var(--secondary);
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+    }
+
+    .btn-send-order:hover { transform: scale(1.02); box-shadow: 0 0 20px var(--primary); }
+    .btn-send-order:active { transform: scale(0.98); }
+
+    .footer { text-align: center; padding: 30px; font-size: 11px; color: var(--text-muted); border-top: 1px solid var(--border); margin-top: 40px; }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <div class="header">
+    <button class="menu-toggle" id="menuToggle">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="logo-header">PERROS CRIOLLOS</div>
+    <div class="header-right">
+      <button class="cart-btn" id="cartBtn" onclick="toggleCart()">
+        🛒
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- SIDEBAR MENU -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-title">Menú</div>
+      <button class="close-menu" id="closeMenu">✕</button>
+    </div>
+    <nav class="sidebar-nav" id="sidebarNav"></nav>
+  </div>
+
+  <div class="overlay" id="overlay"></div>
+
+  <!-- CARRITO SIDEBAR -->
+  <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <h3>🛒 Tu Pedido</h3>
+      <button class="close-cart" onclick="toggleCart()">✕</button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-empty" id="cartEmpty">
+      <div style="font-size: 40px;">🛒</div>
+      <p>Tu carrito está vacío</p>
+      <span style="font-size: 12px;">¡Agrega algo delicioso!</span>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total:</span>
+        <strong id="cartTotal">$0</strong>
+      </div>
+      <button class="btn-checkout" id="checkoutBtn" onclick="openCheckout()" style="display:none;">
+        Hacer Pedido
+      </button>
+    </div>
+  </div>
+
+  <!-- CHECKOUT MODAL -->
+  <div class="checkout-overlay" id="checkoutOverlay">
+    <div class="checkout-modal">
+      <div class="checkout-header">
+        <h3>Finalizar Pedido</h3>
+        <button class="close-checkout" onclick="closeCheckout()">✕</button>
+      </div>
+      <form onsubmit="sendWhatsAppOrder(event)">
+        <div class="form-group">
+          <label>👤 Tu Nombre</label>
+          <input type="text" id="clientName" placeholder="Ej: Juan Pérez" required>
+        </div>
+        <div class="form-group">
+          <label>📍 Dirección de Entrega</label>
+          <textarea id="clientAddress" rows="3" placeholder="Ej: Av. Principal, Edificio Los Pinos, Piso 2, Apt 4" required></textarea>
+        </div>
+        <div class="form-group">
+          <label>💳 Método de Pago</label>
+          <select id="paymentMethod" required>
+            <option value="Efectivo">💵 Efectivo</option>
+            <option value="Pago Móvil">📱 Pago Móvil</option>
+            <option value="Transferencia">🏦 Transferencia</option>
+            <option value="Tarjeta">💳 Tarjeta</option>
+          </select>
+        </div>
+        <div class="checkout-summary" id="checkoutSummary"></div>
+        <button type="submit" class="btn-send-order">
+          📱 Enviar Pedido por WhatsApp
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main">
+    <div class="hero">
+      <img src="imgs/logo.jpg" alt="Perros Criollos" class="hero-logo">
+      <div class="hero-title">PERROS CRIOLLOS</div>
+      <div class="hero-subtitle">Perros Calientes • Hamburguesas • Salchipapas</div>
+    </div>
+    <div id="mainContent"></div>
+  </div>
+
+  <div class="footer">© 2026 PERROS CRIOLLOS · Todos los derechos reservados</div>
+
+  <script>
+    // ── CONFIGURACIÓN ──
+    const WHATSAPP_NUMBER = '573043632573'; // Cambiar por el número de WhatsApp del restaurante
+    const RESTAURANT_NAME = 'Perros Criollos';
+
+    // ── ESTADO GLOBAL ──
+    let menuData = [];
+    let cart = [];
+
+    // ── INIT ──
+    async function init() {
+      try {
+        const res = await fetch('menu.json');
+        menuData = await res.json();
+      } catch (e) {
+        console.warn('menu.json no encontrado - usando estructura vacía');
+        menuData = [];
+      }
+      buildSidebar();
+      buildMenu();
+      loadCartFromStorage();
+      initScrollEffects();
+    }
+
+    // ── CARRITO - STORAGE ──
+    function saveCartToStorage() {
+      localStorage.setItem('perros_criollos_cart', JSON.stringify(cart));
+    }
+
+    function loadCartFromStorage() {
+      const saved = localStorage.getItem('perros_criollos_cart');
+      if (saved) {
+        cart = JSON.parse(saved);
+        updateCartUI();
+      }
+    }
+
+    // ── CARRITO - AGREGAR ──
+    function addToCart(product) {
+      const existing = cart.find(item => item.id === product.id);
+      if (existing) {
+        existing.cantidad++;
+      } else {
+        cart.push({ ...product, cantidad: 1 });
+      }
+      saveCartToStorage();
+      updateCartUI();
+    }
+
+    // ── CARRITO - ACTUALIZAR CANTIDAD ──
+    function updateQuantity(productId, change) {
+      const item = cart.find(p => p.id === productId);
+      if (item) {
+        item.cantidad += change;
+        if (item.cantidad <= 0) {
+          cart = cart.filter(p => p.id !== productId);
+        }
+        saveCartToStorage();
+        updateCartUI();
+      }
+    }
+
+    // ── CARRITO - ELIMINAR ──
+    function removeFromCart(productId) {
+      cart = cart.filter(p => p.id !== productId);
+      saveCartToStorage();
+      updateCartUI();
+    }
+
+    // ── CARRITO - ACTUALIZAR UI ──
+    function updateCartUI() {
+      const count = cart.reduce((sum, item) => sum + item.cantidad, 0);
+      document.getElementById('cartCount').textContent = count;
+
+      const cartItemsDiv = document.getElementById('cartItems');
+      const cartEmptyDiv = document.getElementById('cartEmpty');
+      const checkoutBtn = document.getElementById('checkoutBtn');
+
+      if (cart.length === 0) {
+        cartItemsDiv.innerHTML = '';
+        cartEmptyDiv.style.display = 'flex';
+        checkoutBtn.style.display = 'none';
+      } else {
+        cartEmptyDiv.style.display = 'none';
+        checkoutBtn.style.display = 'block';
+        cartItemsDiv.innerHTML = cart.map(item => `
+          <div class="cart-item">
+            <div class="cart-item-info">
+              <div class="cart-item-name">${item.name}</div>
+              <div class="cart-item-price">$${(item.price * item.cantidad).toLocaleString()}</div>
+            </div>
+            <div class="cart-item-controls">
+              <button class="cart-item-btn" onclick="updateQuantity(${item.id}, -1)">−</button>
+              <div class="cart-item-qty">${item.cantidad}</div>
+              <button class="cart-item-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
+              <button class="cart-item-remove" onclick="removeFromCart(${item.id})">✕</button>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      const total = cart.reduce((sum, item) => sum + (item.price * item.cantidad), 0);
+      document.getElementById('cartTotal').textContent = '$' + total.toLocaleString();
+    }
+
+    // ── CARRITO - TOGGLE ──
+    function toggleCart() {
+      document.getElementById('cartSidebar').classList.toggle('open');
+      document.getElementById('overlay').classList.toggle('open');
+    }
+
+    // ── CHECKOUT ──
+    function openCheckout() {
+      document.getElementById('checkoutOverlay').classList.add('open');
+      document.getElementById('cartSidebar').classList.remove('open');
+      document.getElementById('overlay').classList.remove('open');
+    }
+
+    function closeCheckout() {
+      document.getElementById('checkoutOverlay').classList.remove('open');
+    }
+
+    // ── WHATSAPP ORDER ──
+    function sendWhatsAppOrder(event) {
+      event.preventDefault();
+
+      const name = document.getElementById('clientName').value;
+      const address = document.getElementById('clientAddress').value;
+      const payment = document.getElementById('paymentMethod').value;
+
+      let message = `*Nuevo Pedido - ${RESTAURANT_NAME}*\n\n`;
+      message += `👤 *Cliente:* ${name}\n`;
+      message += `📍 *Dirección:* ${address}\n`;
+      message += `💳 *Pago:* ${payment}\n\n`;
+      message += `*Pedido:*\n`;
+
+      cart.forEach(item => {
+        message += `• ${item.name} x${item.cantidad} = $${(item.price * item.cantidad).toLocaleString()}\n`;
+      });
+
+      const total = cart.reduce((sum, item) => sum + (item.price * item.cantidad), 0);
+      message += `\n*Total: $${total.toLocaleString()}*`;
+
+      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+      window.open(url, '_blank');
+
+      // Limpiar carrito después de enviar
+      cart = [];
+      saveCartToStorage();
+      updateCartUI();
+      closeCheckout();
+      document.getElementById('clientName').value = '';
+      document.getElementById('clientAddress').value = '';
+    }
+
+    // ── SIDEBAR MENU ──
+    function buildSidebar() {
+      const categories = [...new Set(menuData.map(p => p.category))];
+      const sidebarNav = document.getElementById('sidebarNav');
+      sidebarNav.innerHTML = categories.map((cat, idx) => `
+        <button class="sidebar-link ${idx === 0 ? 'active' : ''}" onclick="scrollToCategory('${cat}')">
+          ${cat}
+        </button>
+      `).join('');
+    }
+
+    function scrollToCategory(category) {
+      const element = document.getElementById(`category-${category}`);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+        document.querySelectorAll('.sidebar-link').forEach(link => link.classList.remove('active'));
+        event.target.classList.add('active');
+        document.getElementById('sidebar').classList.remove('open');
+        document.getElementById('overlay').classList.remove('open');
+      }
+    }
+
+    // ── MENU BUILDER ──
+    function buildMenu() {
+      const categories = [...new Set(menuData.map(p => p.category))];
+      const mainContent = document.getElementById('mainContent');
+
+      mainContent.innerHTML = categories.map(category => {
+        const products = menuData.filter(p => p.category === category);
+        return `
+          <div class="category-section" id="category-${category}">
+            <div class="category-header">
+              <h2 class="category-title">${category}</h2>
+              <div class="category-line"></div>
+            </div>
+            <div class="products-grid">
+              ${products.map(product => `
+                <div class="product-card">
+                  <div class="card-img-wrap">
+                    <img src="${product.image}" alt="${product.name}" class="card-img">
+                    <button class="card-add-btn" onclick="addToCart({id: ${product.id}, name: '${product.name}', price: ${product.price}})">+</button>
+                  </div>
+                  <div class="card-body">
+                    <div class="card-name">${product.name}</div>
+                    <div class="card-price">$${product.price.toLocaleString()}</div>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // ── EVENTOS ──
+    document.getElementById('menuToggle').addEventListener('click', () => {
+      document.getElementById('sidebar').classList.toggle('open');
+      document.getElementById('overlay').classList.toggle('open');
+    });
+
+    document.getElementById('closeMenu').addEventListener('click', () => {
+      document.getElementById('sidebar').classList.remove('open');
+      document.getElementById('overlay').classList.remove('open');
+    });
+
+    document.getElementById('overlay').addEventListener('click', () => {
+      document.getElementById('sidebar').classList.remove('open');
+      document.getElementById('cartSidebar').classList.remove('open');
+      document.getElementById('overlay').classList.remove('open');
+    });
+
+    // ── SCROLL EFFECTS ──
+    function initScrollEffects() {
+      const categories = [...new Set(menuData.map(p => p.category))];
+      window.addEventListener('scroll', () => {
+        categories.forEach(cat => {
+          const element = document.getElementById(`category-${cat}`);
+          if (element) {
+            const rect = element.getBoundingClientRect();
+            if (rect.top < 200) {
+              document.querySelectorAll('.sidebar-link').forEach(link => link.classList.remove('active'));
+              const activeLink = document.querySelector(`[onclick="scrollToCategory('${cat}')"]`);
+              if (activeLink) activeLink.classList.add('active');
+            }
+          }
+        });
+      });
+    }
+
+    // ── INIT APP ──
+    window.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
