@@ -728,37 +728,84 @@
 
   <div class="footer">© 2026 PERROS CRIOLLOS · Todos los derechos reservados</div>
 
-  <script>
-    // ── CONFIGURACIÓN ──
-    const WHATSAPP_NUMBER = '573043632573'; // Cambiar por el número de WhatsApp del restaurante
+    <script>
+    // ── SUPABASE CONFIG ──
+    const SUPABASE_URL = 'https://tllpmdhkdlqoqpnqmuwn.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_PqQsGWYjDAu8oq9ABB1hnQ_658qW8RB';
+    const RESTAURANTE_SLUG = 'perroscriollos';
+
+    // ── CONFIGURACIÓN DEL RESTAURANTE ──
+    const WHATSAPP_NUMBER = '573043632573'; // Cambia por el número real del cliente
     const RESTAURANT_NAME = 'Perros Criollos';
 
     // ── ESTADO GLOBAL ──
-    let menuData = [];
-    let cart = [];
+    let restaurante   = null;
+    let categorias    = [];
+    let productos     = [];
+    let cart          = [];
+
+    // ── API SUPABASE ──
+    async function sbFetch(tabla, params = '') {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/${tabla}?${params}`, {
+        headers: {
+          'apikey': SUPABASE_KEY,
+          'Authorization': `Bearer ${SUPABASE_KEY}`
+        }
+      });
+      if (!res.ok) throw new Error(`Error ${res.status} en ${tabla}`);
+      return res.json();
+    }
 
     // ── INIT ──
     async function init() {
       try {
-        const res = await fetch('menu.json');
-        menuData = await res.json();
+        // 1. Datos del restaurante
+        const restData = await sbFetch('restaurantes', `slug=eq.${RESTAURANTE_SLUG}&select=*`);
+        if (!restData.length) throw new Error('Restaurante no encontrado');
+        restaurante = restData[0];
+
+        // Verificar si está activo
+        if (restaurante.activo === false) {
+          document.getElementById('mainContent').innerHTML = `
+            <div style="text-align:center;padding:80px 20px;">
+              <div style="font-size:48px;margin-bottom:16px;">🔒</div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--primary);margin-bottom:8px;">Servicio no disponible</div>
+              <div style="font-size:14px;color:var(--text-muted)">Este menú no está disponible en este momento.</div>
+            </div>`;
+          return;
+        }
+
+        // 2. Categorías ordenadas
+        categorias = await sbFetch('categorias',
+          `restaurante_id=eq.${restaurante.id}&select=*&order=orden.asc`
+        );
+
+        // 3. Productos disponibles
+        productos = await sbFetch('productos',
+          `restaurante_id=eq.${restaurante.id}&disponible=eq.true&select=*&order=precio_numerico.asc`
+        );
+
+        buildSidebar();
+        buildMenu();
+        loadCartFromStorage();
+        initScrollEffects();
+
       } catch (e) {
-        console.warn('menu.json no encontrado - usando estructura vacía');
-        menuData = [];
+        console.error('Error cargando menú:', e);
+        document.getElementById('mainContent').innerHTML = `
+          <p style="text-align:center;padding:40px;color:var(--text-muted)">
+            No se pudo cargar el menú. Intenta de nuevo.
+          </p>`;
       }
-      buildSidebar();
-      buildMenu();
-      loadCartFromStorage();
-      initScrollEffects();
     }
 
     // ── CARRITO - STORAGE ──
     function saveCartToStorage() {
-      localStorage.setItem('perros_criollos_cart', JSON.stringify(cart));
+      localStorage.setItem(`${RESTAURANTE_SLUG}_cart`, JSON.stringify(cart));
     }
 
     function loadCartFromStorage() {
-      const saved = localStorage.getItem('perros_criollos_cart');
+      const saved = localStorage.getItem(`${RESTAURANTE_SLUG}_cart`);
       if (saved) {
         cart = JSON.parse(saved);
         updateCartUI();
@@ -766,12 +813,19 @@
     }
 
     // ── CARRITO - AGREGAR ──
-    function addToCart(product) {
-      const existing = cart.find(item => item.id === product.id);
+    function addToCart(productId) {
+      const product = productos.find(p => p.id === productId);
+      if (!product) return;
+      const existing = cart.find(item => item.id === productId);
       if (existing) {
         existing.cantidad++;
       } else {
-        cart.push({ ...product, cantidad: 1 });
+        cart.push({
+          id: product.id,
+          name: product.nombre,
+          price: product.precio_numerico,
+          cantidad: 1
+        });
       }
       saveCartToStorage();
       updateCartUI();
@@ -804,33 +858,40 @@
 
       const cartItemsDiv = document.getElementById('cartItems');
       const cartEmptyDiv = document.getElementById('cartEmpty');
-      const checkoutBtn = document.getElementById('checkoutBtn');
+      const checkoutBtn  = document.getElementById('checkoutBtn');
 
       if (cart.length === 0) {
         cartItemsDiv.innerHTML = '';
         cartEmptyDiv.style.display = 'flex';
-        checkoutBtn.style.display = 'none';
+        checkoutBtn.style.display  = 'none';
       } else {
         cartEmptyDiv.style.display = 'none';
-        checkoutBtn.style.display = 'block';
-        cartItemsDiv.innerHTML = cart.map(item => `
-          <div class="cart-item">
+        checkoutBtn.style.display  = 'block';
+        cartItemsDiv.innerHTML = '';
+        cart.forEach(item => {
+          const div = document.createElement('div');
+          div.className = 'cart-item';
+          div.innerHTML = `
             <div class="cart-item-info">
               <div class="cart-item-name">${item.name}</div>
-              <div class="cart-item-price">$${(item.price * item.cantidad).toLocaleString()}</div>
+              <div class="cart-item-price">$${(item.price * item.cantidad).toLocaleString('es-CO')}</div>
             </div>
             <div class="cart-item-controls">
-              <button class="cart-item-btn" onclick="updateQuantity(${item.id}, -1)">−</button>
+              <button class="cart-item-btn">−</button>
               <div class="cart-item-qty">${item.cantidad}</div>
-              <button class="cart-item-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
-              <button class="cart-item-remove" onclick="removeFromCart(${item.id})">✕</button>
+              <button class="cart-item-btn">+</button>
+              <button class="cart-item-remove">✕</button>
             </div>
-          </div>
-        `).join('');
+          `;
+          div.querySelectorAll('.cart-item-btn')[0].onclick = () => updateQuantity(item.id, -1);
+          div.querySelectorAll('.cart-item-btn')[1].onclick = () => updateQuantity(item.id, 1);
+          div.querySelector('.cart-item-remove').onclick    = () => removeFromCart(item.id);
+          cartItemsDiv.appendChild(div);
+        });
       }
 
       const total = cart.reduce((sum, item) => sum + (item.price * item.cantidad), 0);
-      document.getElementById('cartTotal').textContent = '$' + total.toLocaleString();
+      document.getElementById('cartTotal').textContent = '$' + total.toLocaleString('es-CO');
     }
 
     // ── CARRITO - TOGGLE ──
@@ -841,6 +902,7 @@
 
     // ── CHECKOUT ──
     function openCheckout() {
+      updateCheckoutSummary();
       document.getElementById('checkoutOverlay').classList.add('open');
       document.getElementById('cartSidebar').classList.remove('open');
       document.getElementById('overlay').classList.remove('open');
@@ -850,91 +912,155 @@
       document.getElementById('checkoutOverlay').classList.remove('open');
     }
 
+    function updateCheckoutSummary() {
+      const summary = document.getElementById('checkoutSummary');
+      const total   = cart.reduce((sum, i) => sum + i.price * i.cantidad, 0);
+      summary.innerHTML = cart.map(item => `
+        <div class="checkout-summary-item">
+          <span>${item.name} x${item.cantidad}</span>
+          <span>$${(item.price * item.cantidad).toLocaleString('es-CO')}</span>
+        </div>
+      `).join('') + `
+        <div class="checkout-summary-total">
+          <span>Total</span>
+          <span>$${total.toLocaleString('es-CO')}</span>
+        </div>`;
+    }
+
     // ── WHATSAPP ORDER ──
     function sendWhatsAppOrder(event) {
       event.preventDefault();
 
-      const name = document.getElementById('clientName').value;
+      const name    = document.getElementById('clientName').value;
       const address = document.getElementById('clientAddress').value;
+      const barrio  = document.getElementById('clientBarrio')?.value || '';
+      const phone   = document.getElementById('clientPhone')?.value || '';
       const payment = document.getElementById('paymentMethod').value;
+      const notas   = document.getElementById('clientNotas')?.value || '';
 
-      let message = `*Nuevo Pedido - ${RESTAURANT_NAME}*\n\n`;
+      let message = `🍟 *Pedido - ${RESTAURANT_NAME}*\n\n`;
       message += `👤 *Cliente:* ${name}\n`;
+      if (phone)   message += `📞 *Teléfono:* ${phone}\n`;
       message += `📍 *Dirección:* ${address}\n`;
-      message += `💳 *Pago:* ${payment}\n\n`;
-      message += `*Pedido:*\n`;
+      if (barrio)  message += `🏘 *Barrio:* ${barrio}\n`;
+      message += `💳 *Pago:* ${payment}\n`;
+      if (notas)   message += `📝 *Notas:* ${notas}\n`;
+      message += `\n🛒 *Pedido:*\n`;
 
       cart.forEach(item => {
-        message += `• ${item.name} x${item.cantidad} = $${(item.price * item.cantidad).toLocaleString()}\n`;
+        message += `• ${item.name} x${item.cantidad} = $${(item.price * item.cantidad).toLocaleString('es-CO')}\n`;
       });
 
-      const total = cart.reduce((sum, item) => sum + (item.price * item.cantidad), 0);
-      message += `\n*Total: $${total.toLocaleString()}*`;
+      const total = cart.reduce((sum, i) => sum + i.price * i.cantidad, 0);
+      message += `\n*TOTAL: $${total.toLocaleString('es-CO')}*`;
 
       const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
       window.open(url, '_blank');
 
-      // Limpiar carrito después de enviar
+      // Limpiar carrito
       cart = [];
       saveCartToStorage();
       updateCartUI();
       closeCheckout();
-      document.getElementById('clientName').value = '';
+      document.getElementById('clientName').value    = '';
       document.getElementById('clientAddress').value = '';
     }
 
-    // ── SIDEBAR MENU ──
+    // ── SIDEBAR MENÚ ──
     function buildSidebar() {
-      const categories = [...new Set(menuData.map(p => p.category))];
-      const sidebarNav = document.getElementById('sidebarNav');
-      sidebarNav.innerHTML = categories.map((cat, idx) => `
-        <button class="sidebar-link ${idx === 0 ? 'active' : ''}" onclick="scrollToCategory('${cat}')">
-          ${cat}
-        </button>
-      `).join('');
+      const nav = document.getElementById('sidebarNav');
+      nav.innerHTML = '';
+      let first = true;
+      categorias.forEach(cat => {
+        const tieneProd = productos.some(p => p.categoria_id === cat.id);
+        if (!tieneProd) return;
+        const btn = document.createElement('button');
+        btn.className = 'sidebar-link' + (first ? ' active' : '');
+        btn.textContent = `${cat.emoji || ''} ${cat.nombre}`.trim();
+        btn.onclick = () => {
+          document.getElementById(`cat-${cat.id}`)?.scrollIntoView({ behavior: 'smooth' });
+          document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+          btn.classList.add('active');
+          document.getElementById('sidebar').classList.remove('open');
+          document.getElementById('overlay').classList.remove('open');
+        };
+        nav.appendChild(btn);
+        first = false;
+      });
     }
 
-    function scrollToCategory(category) {
-      const element = document.getElementById(`category-${category}`);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-        document.querySelectorAll('.sidebar-link').forEach(link => link.classList.remove('active'));
-        event.target.classList.add('active');
-        document.getElementById('sidebar').classList.remove('open');
-        document.getElementById('overlay').classList.remove('open');
-      }
-    }
-
-    // ── MENU BUILDER ──
+    // ── CONSTRUIR MENÚ ──
     function buildMenu() {
-      const categories = [...new Set(menuData.map(p => p.category))];
-      const mainContent = document.getElementById('mainContent');
+      const main = document.getElementById('mainContent');
+      main.innerHTML = '';
 
-      mainContent.innerHTML = categories.map(category => {
-        const products = menuData.filter(p => p.category === category);
-        return `
-          <div class="category-section" id="category-${category}">
-            <div class="category-header">
-              <h2 class="category-title">${category}</h2>
-              <div class="category-line"></div>
-            </div>
-            <div class="products-grid">
-              ${products.map(product => `
-                <div class="product-card">
-                  <div class="card-img-wrap">
-                    <img src="${product.image}" alt="${product.name}" class="card-img">
-                    <button class="card-add-btn" onclick="addToCart({id: ${product.id}, name: '${product.name}', price: ${product.price}})">+</button>
-                  </div>
-                  <div class="card-body">
-                    <div class="card-name">${product.name}</div>
-                    <div class="card-price">$${product.price.toLocaleString()}</div>
-                  </div>
-                </div>
-              `).join('')}
-            </div>
-          </div>
+      categorias.forEach(cat => {
+        const prods = productos.filter(p => p.categoria_id === cat.id);
+        if (!prods.length) return;
+
+        const section = document.createElement('div');
+        section.className = 'category-section';
+        section.id = `cat-${cat.id}`;
+
+        const header = document.createElement('div');
+        header.className = 'category-header';
+        header.innerHTML = `
+          <h2 class="category-title">${cat.emoji || ''} ${cat.nombre}</h2>
+          <div class="category-line"></div>
         `;
-      }).join('');
+        section.appendChild(header);
+
+        const grid = document.createElement('div');
+        grid.className = 'products-grid';
+
+        prods.forEach(p => {
+          const card = document.createElement('div');
+          card.className = 'product-card';
+
+          const imgHtml = p.imagen_url
+            ? `<img src="${p.imagen_url}" alt="${p.nombre}" class="card-img">`
+            : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#444;font-size:32px;">🌭</div>`;
+
+          card.innerHTML = `
+            <div class="card-img-wrap">
+              ${imgHtml}
+              <button class="card-add-btn">+</button>
+            </div>
+            <div class="card-body">
+              <div class="card-name">${p.nombre}</div>
+              <div class="card-price">$${p.precio_numerico.toLocaleString('es-CO')}</div>
+            </div>
+          `;
+          card.querySelector('.card-add-btn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            addToCart(p.id);
+          });
+          grid.appendChild(card);
+        });
+
+        section.appendChild(grid);
+        main.appendChild(section);
+      });
+    }
+
+    // ── SCROLL EFFECTS ──
+    function initScrollEffects() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const catId = entry.target.id.replace('cat-', '');
+            document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+            const cat = categorias.find(c => c.id === catId);
+            if (cat) {
+              document.querySelectorAll('.sidebar-link').forEach(btn => {
+                if (btn.textContent.trim().includes(cat.nombre)) btn.classList.add('active');
+              });
+            }
+          }
+        });
+      }, { rootMargin: '-30% 0px -60% 0px' });
+
+      document.querySelectorAll('.category-section').forEach(s => observer.observe(s));
     }
 
     // ── EVENTOS ──
@@ -954,25 +1080,7 @@
       document.getElementById('overlay').classList.remove('open');
     });
 
-    // ── SCROLL EFFECTS ──
-    function initScrollEffects() {
-      const categories = [...new Set(menuData.map(p => p.category))];
-      window.addEventListener('scroll', () => {
-        categories.forEach(cat => {
-          const element = document.getElementById(`category-${cat}`);
-          if (element) {
-            const rect = element.getBoundingClientRect();
-            if (rect.top < 200) {
-              document.querySelectorAll('.sidebar-link').forEach(link => link.classList.remove('active'));
-              const activeLink = document.querySelector(`[onclick="scrollToCategory('${cat}')"]`);
-              if (activeLink) activeLink.classList.add('active');
-            }
-          }
-        });
-      });
-    }
-
-    // ── INIT APP ──
+    // ── ARRANCAR ──
     window.addEventListener('DOMContentLoaded', init);
   </script>
 </body>
