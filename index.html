@@ -990,8 +990,8 @@
       chip.type = 'button';
       chip.textContent = label;
       chip.dataset.active = preSelected ? 'true' : 'false';
-      const activeStyle   = 'padding:7px 12px;border-radius:20px;border:1px solid #FF0000;background:rgba(255,0,0,0.15);color:#FF0000;font-family:'Poppins',sans-serif;font-size:12px;cursor:pointer;transition:all 0.18s;white-space:nowrap;box-shadow:0 0 8px rgba(255,0,0,0.3);';
-      const inactiveStyle = 'padding:7px 12px;border-radius:20px;border:1px solid #333;background:#252525;color:#b0b0b0;font-family:'Poppins',sans-serif;font-size:12px;cursor:pointer;transition:all 0.18s;white-space:nowrap;';
+      const activeStyle   = 'padding:7px 12px;border-radius:20px;border:1px solid #FF0000;background:rgba(255,0,0,0.15);color:#FF0000;font-family:"Poppins",sans-serif;font-size:12px;cursor:pointer;transition:all 0.18s;white-space:nowrap;box-shadow:0 0 8px rgba(255,0,0,0.3);';
+const inactiveStyle = 'padding:7px 12px;border-radius:20px;border:1px solid #333;background:#252525;color:#b0b0b0;font-family:"Poppins",sans-serif;font-size:12px;cursor:pointer;transition:all 0.18s;white-space:nowrap;';
       chip.style.cssText = preSelected ? activeStyle : inactiveStyle;
       chip.addEventListener('click', () => {
         const active = chip.dataset.active === 'true';
