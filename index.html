@@ -632,6 +632,21 @@
     .btn-send-order:active { transform: scale(0.98); }
 
     .footer { text-align: center; padding: 30px; font-size: 11px; color: var(--text-muted); border-top: 1px solid var(--border); margin-top: 40px; }
+
+    /* Fix carrito móvil — footer siempre visible */
+.cart-sidebar {
+  display: flex;
+  flex-direction: column;
+}
+.cart-items {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+.cart-footer {
+  flex-shrink: 0;
+}
+    
   </style>
 </head>
 <body>
@@ -716,7 +731,7 @@
     </div>
   </div>
 
-  <!-- MODAL DE PERSONALIZACIÓN -->
+<!-- MODAL DE PERSONALIZACIÓN -->
   <div id="customOverlay" style="
     position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:400;
     display:flex;align-items:flex-end;justify-content:center;
@@ -798,7 +813,7 @@
 
   <div class="footer">© 2026 PERROS CRIOLLOS · Todos los derechos reservados</div>
 
-    <script>
+<script>
     // ── SUPABASE CONFIG ──
     const SUPABASE_URL = 'https://tllpmdhkdlqoqpnqmuwn.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_PqQsGWYjDAu8oq9ABB1hnQ_658qW8RB';
@@ -814,6 +829,7 @@
 
     // Estado del modal de personalización
     let customProduct      = null;
+    let customEditingKey   = null;
     let customQty          = 1;
     let selectedPlatino    = new Set();
     let selectedPremium    = new Set();
@@ -855,6 +871,7 @@
         loadCartFromStorage();
         initScrollEffects();
         initCustomModalEvents();
+        fixCartLayout();
 
       } catch(e) {
         console.error(e);
@@ -864,19 +881,38 @@
     }
 
     // ── MODAL PERSONALIZACIÓN ──
-    function openCustomModal(productId) {
+    // editingCartKey: si se pasa, estamos editando un ítem existente del carrito
+    function openCustomModal(productId, editingCartKey = null) {
       const p = productos.find(pr => pr.id === productId);
       if (!p) return;
       customProduct   = p;
-      customQty       = 1;
-      selectedPlatino = new Set();
-      selectedPremium = new Set();
-      selectedSalsas  = new Set();
+      customEditingKey = editingCartKey;
+
+      // Si editamos, precargamos la selección existente
+      if (editingCartKey) {
+        const cartItem = cart.find(i => i.cartKey === editingCartKey);
+        customQty = cartItem ? cartItem.cantidad : 1;
+        // Parsear descripcion para recuperar selecciones
+        const desc = cartItem?.descripcion || '';
+        const platMatch   = desc.match(/Toppings: ([^|]+)/);
+        const premMatch   = desc.match(/Premium: ([^|]+)/);
+        const salsaMatch  = desc.match(/Salsas: ([^|]+)/);
+        selectedPlatino = new Set(platMatch  ? platMatch[1].trim().split(', ')  : []);
+        selectedPremium = new Set(premMatch  ? premMatch[1].trim().split(', ')  : []);
+        selectedSalsas  = new Set(salsaMatch ? salsaMatch[1].trim().split(', ') : []);
+      } else {
+        customQty       = 1;
+        selectedPlatino = new Set();
+        selectedPremium = new Set();
+        selectedSalsas  = new Set();
+      }
 
       const attr = p.atributos || {};
       document.getElementById('customName').textContent      = p.nombre;
       document.getElementById('customBasePrice').textContent = `Precio base: $${p.precio_numerico.toLocaleString('es-CO')}`;
-      document.getElementById('customQty').textContent       = '1';
+      document.getElementById('customQty').textContent       = customQty.toString();
+      document.getElementById('btnAgregarCarrito').textContent =
+        editingCartKey ? '✏ GUARDAR CAMBIOS' : '🛒 AGREGAR AL CARRITO';
 
       // Toppings platino
       const listPlatino = document.getElementById('listToppingsPlatino');
@@ -885,11 +921,12 @@
       if (attr.toppings_platino?.length) {
         secPlatino.style.display = 'block';
         attr.toppings_platino.forEach(t => {
-          listPlatino.appendChild(mkChipModal(t, () => {
+          const chip = mkChipModal(t, () => {
             if (selectedPlatino.has(t)) selectedPlatino.delete(t);
             else selectedPlatino.add(t);
             updateCustomTotal();
-          }));
+          }, selectedPlatino.has(t));
+          listPlatino.appendChild(chip);
         });
       } else { secPlatino.style.display = 'none'; }
 
@@ -900,14 +937,15 @@
       if (attr.toppings_premium?.length) {
         secPremium.style.display = 'block';
         attr.toppings_premium.forEach(t => {
-          listPremium.appendChild(mkChipModal(
+          const chip = mkChipModal(
             `${t.nombre} (+$${t.precio.toLocaleString('es-CO')})`,
             () => {
               if (selectedPremium.has(t.nombre)) selectedPremium.delete(t.nombre);
               else selectedPremium.add(t.nombre);
               updateCustomTotal();
-            }
-          ));
+            }, selectedPremium.has(t.nombre)
+          );
+          listPremium.appendChild(chip);
         });
       } else { secPremium.style.display = 'none'; }
 
@@ -918,11 +956,12 @@
       if (attr.salsas?.length) {
         secSalsas.style.display = 'block';
         attr.salsas.forEach(s => {
-          listSalsas.appendChild(mkChipModal(s, () => {
+          const chip = mkChipModal(s, () => {
             if (selectedSalsas.has(s)) selectedSalsas.delete(s);
             else selectedSalsas.add(s);
             updateCustomTotal();
-          }));
+          }, selectedSalsas.has(s));
+          listSalsas.appendChild(chip);
         });
       } else { secSalsas.style.display = 'none'; }
 
@@ -946,28 +985,18 @@
       document.body.style.overflow = '';
     }
 
-    function mkChipModal(label, onClick) {
+    function mkChipModal(label, onClick, preSelected = false) {
       const chip = document.createElement('button');
       chip.type = 'button';
       chip.textContent = label;
-      chip.style.cssText = `
-        padding:7px 12px;border-radius:20px;border:1px solid #333;background:#252525;
-        color:#b0b0b0;font-family:'Poppins',sans-serif;font-size:12px;cursor:pointer;
-        transition:all 0.18s;white-space:nowrap;`;
+      chip.dataset.active = preSelected ? 'true' : 'false';
+      const activeStyle   = 'padding:7px 12px;border-radius:20px;border:1px solid #FF0000;background:rgba(255,0,0,0.15);color:#FF0000;font-family:'Poppins',sans-serif;font-size:12px;cursor:pointer;transition:all 0.18s;white-space:nowrap;box-shadow:0 0 8px rgba(255,0,0,0.3);';
+      const inactiveStyle = 'padding:7px 12px;border-radius:20px;border:1px solid #333;background:#252525;color:#b0b0b0;font-family:'Poppins',sans-serif;font-size:12px;cursor:pointer;transition:all 0.18s;white-space:nowrap;';
+      chip.style.cssText = preSelected ? activeStyle : inactiveStyle;
       chip.addEventListener('click', () => {
         const active = chip.dataset.active === 'true';
         chip.dataset.active = !active;
-        if (!active) {
-          chip.style.border      = '1px solid #FF0000';
-          chip.style.color       = '#FF0000';
-          chip.style.background  = 'rgba(255,0,0,0.15)';
-          chip.style.boxShadow   = '0 0 8px rgba(255,0,0,0.3)';
-        } else {
-          chip.style.border      = '1px solid #333';
-          chip.style.color       = '#b0b0b0';
-          chip.style.background  = '#252525';
-          chip.style.boxShadow   = 'none';
-        }
+        chip.style.cssText = !active ? activeStyle : inactiveStyle;
         onClick();
       });
       return chip;
@@ -1009,34 +1038,31 @@
         .reduce((sum, t) => sum + t.precio, 0);
       const precioUnit = customProduct.precio_numerico + extrasPrec;
 
-      // Construir descripción de la personalización
       const partes = [];
       if (selectedPlatino.size) partes.push(`Toppings: ${[...selectedPlatino].join(', ')}`);
       if (selectedPremium.size) partes.push(`Premium: ${[...selectedPremium].join(', ')}`);
       if (selectedSalsas.size)  partes.push(`Salsas: ${[...selectedSalsas].join(', ')}`);
       const descripcion = partes.join(' | ');
-
-      // Usar una key única que incluya la personalización
       const cartKey = `${customProduct.id}__${descripcion}`;
+
+      if (customEditingKey) {
+        // Edición: quitar el ítem viejo y reemplazar con la nueva configuración
+        cart = cart.filter(i => i.cartKey !== customEditingKey);
+      }
+
       const existing = cart.find(i => i.cartKey === cartKey);
       if (existing) {
         existing.cantidad += customQty;
       } else {
-        cart.push({
-          cartKey,
-          id:         customProduct.id,
-          name:       customProduct.nombre,
-          price:      precioUnit,
-          cantidad:   customQty,
-          descripcion
-        });
+        cart.push({ cartKey, id: customProduct.id, name: customProduct.nombre,
+          price: precioUnit, cantidad: customQty, descripcion });
       }
 
+      customEditingKey = null;
       saveCartToStorage();
       updateCartUI();
       closeCustomModal();
 
-      // Feedback visual en el botón del carrito
       const cartBtn = document.getElementById('cartBtn');
       cartBtn.style.transform = 'scale(1.2)';
       setTimeout(() => cartBtn.style.transform = 'scale(1)', 200);
@@ -1085,22 +1111,37 @@
         cart.forEach(item => {
           const div = document.createElement('div');
           div.className = 'cart-item';
+          // Verificar si el producto tiene opciones editables
+          const prod = productos.find(p => p.id === item.id);
+          const tieneOpc = prod && prod.atributos &&
+            (prod.atributos.toppings_platino?.length || prod.atributos.toppings_premium?.length || prod.atributos.salsas?.length);
+
           div.innerHTML = `
-            <div class="cart-item-info">
+            <div class="cart-item-info" style="flex:1;min-width:0;">
               <div class="cart-item-name">${item.name}</div>
-              ${item.descripcion ? `<div style="font-size:11px;color:#888;margin-top:2px;line-height:1.4">${item.descripcion}</div>` : ''}
+              ${item.descripcion ? `<div style="font-size:10px;color:#888;margin-top:2px;line-height:1.4;word-break:break-word;">${item.descripcion}</div>` : ''}
               <div class="cart-item-price">$${(item.price * item.cantidad).toLocaleString('es-CO')}</div>
             </div>
-            <div class="cart-item-controls">
-              <button class="cart-item-btn">−</button>
-              <div class="cart-item-qty">${item.cantidad}</div>
-              <button class="cart-item-btn">+</button>
-              <button class="cart-item-remove">✕</button>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0;margin-left:8px;">
+              ${tieneOpc ? '<button class="btn-edit-cart" style="background:rgba(255,0,0,0.15);color:#FF0000;border:1px solid #FF0000;border-radius:4px;padding:3px 8px;font-size:10px;cursor:pointer;white-space:nowrap;">✏ Editar</button>' : ''}
+              <div class="cart-item-controls">
+                <button class="cart-item-btn">−</button>
+                <div class="cart-item-qty">${item.cantidad}</div>
+                <button class="cart-item-btn">+</button>
+                <button class="cart-item-remove">✕</button>
+              </div>
             </div>
           `;
           div.querySelectorAll('.cart-item-btn')[0].onclick = () => updateQuantity(item.cartKey, -1);
           div.querySelectorAll('.cart-item-btn')[1].onclick = () => updateQuantity(item.cartKey, 1);
           div.querySelector('.cart-item-remove').onclick    = () => removeFromCart(item.cartKey);
+          if (tieneOpc) {
+            div.querySelector('.btn-edit-cart').onclick = () => {
+              document.getElementById('cartSidebar').classList.remove('open');
+              document.getElementById('overlay').classList.remove('open');
+              openCustomModal(item.id, item.cartKey);
+            };
+          }
           cartItemsDiv.appendChild(div);
         });
       }
@@ -1169,6 +1210,17 @@
     }
 
     // ── SIDEBAR ──
+    function fixCartLayout() {
+      // Garantizar que el footer del carrito siempre sea visible en móvil
+      const cartItems = document.getElementById('cartItems');
+      const cartSidebar = document.getElementById('cartSidebar');
+      if (cartItems && cartSidebar) {
+        cartItems.style.flex = '1';
+        cartItems.style.overflowY = 'auto';
+        cartItems.style.minHeight = '0';
+      }
+    }
+
     function buildSidebar() {
       const nav = document.getElementById('sidebarNav');
       nav.innerHTML = '';
@@ -1226,9 +1278,7 @@
           card.innerHTML = `
             <div class="card-img-wrap">
               ${imgHtml}
-              <button class="card-add-btn" title="${tieneOpciones ? 'Personalizar' : 'Agregar'}">
-                ${tieneOpciones ? '⚙' : '+'}
-              </button>
+              <button class="card-add-btn" title="${tieneOpciones ? 'Personalizar' : 'Agregar'}">+</button>
             </div>
             <div class="card-body">
               <div class="card-name">${p.nombre}</div>
