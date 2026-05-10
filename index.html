@@ -172,1181 +172,1180 @@
 
 			.sidebar.open { left: 0; }
 
-    .sidebar-header {
-      padding: 20px 16px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
+			.sidebar-header {
+				padding: 20px 16px;
+				border-bottom: 1px solid var(--border);
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+			}
 
-    .sidebar-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 20px;
-      color: var(--primary);
-      text-transform: uppercase;
-      text-shadow: 0 0 8px var(--primary);
-    }
+			.sidebar-title {
+				font-family: 'Bebas Neue', sans-serif;
+				font-size: 20px;
+				color: var(--primary);
+				text-transform: uppercase;
+				text-shadow: 0 0 8px var(--primary);
+			}
 
-    .close-menu {
-      background: none;
-      border: none;
-      color: var(--text);
-      font-size: 28px;
-      cursor: pointer;
-    }
+			.close-menu {
+				background: none;
+				border: none;
+				color: var(--text);
+				font-size: 28px;
+				cursor: pointer;
+			}
 
-    .sidebar-nav { display: flex; flex-direction: column; }
+			.sidebar-nav { display: flex; flex-direction: column; }
 
-    .sidebar-link {
-      padding: 16px 20px;
-      border-bottom: 1px solid var(--border);
-      color: var(--text);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 14px;
-      text-transform: uppercase;
-      cursor: pointer;
-      background: transparent;
-      border: none;
-      width: 100%;
-      text-align: left;
-      transition: all 0.2s;
-    }
+			.sidebar-link {
+				padding: 16px 20px;
+				border-bottom: 1px solid var(--border);
+				color: var(--text);
+				text-decoration: none;
+				font-weight: 600;
+				font-size: 14px;
+				text-transform: uppercase;
+				cursor: pointer;
+				background: transparent;
+				border: none;
+				width: 100%;
+				text-align: left;
+				transition: all 0.2s;
+			}
 
-    .sidebar-link:hover,
-    .sidebar-link:active,
-    .sidebar-link.active {
-      background: rgba(255, 215, 0, 0.15);
-      color: var(--primary);
-      border-left: 4px solid var(--primary);
-      padding-left: 16px;
-      text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
-    }
+			.sidebar-link:hover,
+			.sidebar-link:active,
+			.sidebar-link.active {
+				background: rgba(255, 215, 0, 0.15);
+				color: var(--primary);
+				border-left: 4px solid var(--primary);
+				padding-left: 16px;
+				text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+			}
 
-    /* ── OVERLAY ── */
-    .overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.7);
-      z-index: 150;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s;
-    }
-    .overlay.open { opacity: 1; pointer-events: all; }
+			/* ── OVERLAY ── */
+			.overlay {
+				position: fixed;
+				inset: 0;
+				background: rgba(0, 0, 0, 0.7);
+				z-index: 150;
+				opacity: 0;
+				pointer-events: none;
+				transition: opacity 0.3s;
+			}
+			.overlay.open { opacity: 1; pointer-events: all; }
 
-    /* ── MAIN CONTENT ── */
-    .main {
-      margin-top: 60px;
-      padding: 20px 12px 80px;
-      max-width: 1200px;
-      margin-left: auto;
-      margin-right: auto;
-    }
+			/* ── MAIN CONTENT ── */
+			.main {
+				margin-top: 60px;
+				padding: 20px 12px 80px;
+				max-width: 1200px;
+				margin-left: auto;
+				margin-right: auto;
+			}
 
-    .hero { text-align: center; margin-bottom: 30px; padding: 20px 0; }
-    .hero-logo { width: 120px; height: 120px; margin: 0 auto 16px; object-fit: contain; filter: drop-shadow(0 0 10px var(--primary)); }
-    .hero-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 42px;
-      letter-spacing: 3px;
-      color: var(--primary);
-      text-transform: uppercase;
-      margin-bottom: 8px;
-      text-shadow: 0 0 15px var(--primary), 0 0 30px rgba(255, 215, 0, 0.4);
-    }
-    .hero-subtitle { font-size: 12px; color: var(--secondary); letter-spacing: 1px; text-transform: uppercase; font-weight: 600; }
+			.hero { text-align: center; margin-bottom: 30px; padding: 20px 0; }
+			.hero-logo { width: 120px; height: 120px; margin: 0 auto 16px; object-fit: contain; filter: drop-shadow(0 0 10px var(--primary)); }
+			.hero-title {
+				font-family: 'Bebas Neue', sans-serif;
+				font-size: 42px;
+				letter-spacing: 3px;
+				color: var(--primary);
+				text-transform: uppercase;
+				margin-bottom: 8px;
+				text-shadow: 0 0 15px var(--primary), 0 0 30px rgba(255, 215, 0, 0.4);
+			}
+			.hero-subtitle { font-size: 12px; color: var(--secondary); letter-spacing: 1px; text-transform: uppercase; font-weight: 600; }
 
-    /* ── CATEGORÍA SECCIÓN ── */
-    .category-section { margin-bottom: 40px; }
-    .category-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
-    .category-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 26px;
-      color: var(--primary);
-      text-transform: uppercase;
-      text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
-    }
-    .category-line { flex: 1; height: 2px; background: linear-gradient(90deg, var(--primary) 0%, transparent 100%); box-shadow: 0 0 5px var(--primary); }
+			/* ── CATEGORÍA SECCIÓN ── */
+			.category-section { margin-bottom: 40px; }
+			.category-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+			.category-title {
+				font-family: 'Bebas Neue', sans-serif;
+				font-size: 26px;
+				color: var(--primary);
+				text-transform: uppercase;
+				text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+			}
+			.category-line { flex: 1; height: 2px; background: linear-gradient(90deg, var(--primary) 0%, transparent 100%); box-shadow: 0 0 5px var(--primary); }
 
-    /* ── GRID PRODUCTOS ── */
-    .products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-    @media (min-width: 768px) { .products-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; } }
+			/* ── GRID PRODUCTOS ── */
+			.products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+			@media (min-width: 768px) { .products-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; } }
 
-    /* ── CARD PRODUCTO ── */
-    .product-card {
-      background: var(--card);
-      border-radius: var(--radius);
-      overflow: hidden;
-      border: 2px solid var(--border);
-      cursor: pointer;
-      transition: all 0.2s;
-      position: relative;
-    }
+			/* ── CARD PRODUCTO ── */
+			.product-card {
+				background: var(--card);
+				border-radius: var(--radius);
+				overflow: hidden;
+				border: 2px solid var(--border);
+				cursor: pointer;
+				transition: all 0.2s;
+				position: relative;
+			}
 
-    .product-card:hover {
-      border-color: var(--primary);
-      box-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
-      transform: translateY(-2px);
-    }
-    .product-card:active { transform: scale(0.97); border-color: var(--primary); box-shadow: 0 0 15px var(--primary); }
+			.product-card:hover {
+				border-color: var(--primary);
+				box-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
+				transform: translateY(-2px);
+			}
+			.product-card:active { transform: scale(0.97); border-color: var(--primary); box-shadow: 0 0 15px var(--primary); }
 
-    .card-img-wrap { position: relative; width: 100%; aspect-ratio: 1 / 1; background: var(--surface); overflow: hidden; }
-    .card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
-    .product-card:hover .card-img { transform: scale(1.05); }
+			.card-img-wrap { position: relative; width: 100%; aspect-ratio: 1 / 1; background: var(--surface); overflow: hidden; }
+			.card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+			.product-card:hover .card-img { transform: scale(1.05); }
 
-    .card-body { padding: 12px; }
-    .card-name { font-family: 'Bebas Neue', sans-serif; font-size: 14px; color: var(--text); margin-bottom: 4px; text-transform: uppercase; transition: color 0.2s; }
-    .product-card:hover .card-name { color: var(--primary); text-shadow: 0 0 5px rgba(255, 215, 0, 0.4); }
-    .card-price { font-size: 13px; font-weight: 700; color: var(--secondary); }
+			.card-body { padding: 12px; }
+			.card-name { font-family: 'Bebas Neue', sans-serif; font-size: 14px; color: var(--text); margin-bottom: 4px; text-transform: uppercase; transition: color 0.2s; }
+			.product-card:hover .card-name { color: var(--primary); text-shadow: 0 0 5px rgba(255, 215, 0, 0.4); }
+			.card-price { font-size: 13px; font-weight: 700; color: var(--secondary); }
 
-    /* ── BOTÓN AGREGAR ── */
-    .card-add-btn {
-      position: absolute;
-      bottom: 12px;
-      right: 12px;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: var(--primary);
-      color: var(--secondary);
-      border: none;
-      font-size: 20px;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
-      box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-    }
+			/* ── BOTÓN AGREGAR ── */
+			.card-add-btn {
+				position: absolute;
+				bottom: 12px;
+				right: 12px;
+				width: 36px;
+				height: 36px;
+				border-radius: 50%;
+				background: var(--primary);
+				color: var(--secondary);
+				border: none;
+				font-size: 20px;
+				font-weight: 700;
+				cursor: pointer;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				transition: all 0.2s;
+				box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+			}
 
-    .card-add-btn:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 15px var(--primary);
-    }
+			.card-add-btn:hover {
+				transform: scale(1.1);
+				box-shadow: 0 0 15px var(--primary);
+			}
 
-    .card-add-btn:active { transform: scale(0.95); }
+			.card-add-btn:active { transform: scale(0.95); }
 
-    /* ── CARRITO SIDEBAR ── */
-    .cart-sidebar {
-      position: fixed;
-      right: -100%;
-      top: 0;
-      width: 100%;
-      max-width: 350px;
-      height: 100vh;
-      background: var(--surface);
-      border-left: 3px solid var(--primary);
-      z-index: 250;
-      transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      display: flex;
-      flex-direction: column;
-      box-shadow: -0 0 20px rgba(255, 215, 0, 0.3);
-    }
+			/* ── CARRITO SIDEBAR ── */
+			.cart-sidebar {
+				position: fixed;
+				right: -100%;
+				top: 0;
+				width: 100%;
+				max-width: 350px;
+				height: 100vh;
+				background: var(--surface);
+				border-left: 3px solid var(--primary);
+				z-index: 250;
+				transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+				display: flex;
+				flex-direction: column;
+				box-shadow: -0 0 20px rgba(255, 215, 0, 0.3);
+			}
 
-    .cart-sidebar.open { right: 0; }
+			.cart-sidebar.open { right: 0; }
 
-    .cart-header {
-      padding: 16px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+			.cart-header {
+				padding: 16px;
+				border-bottom: 1px solid var(--border);
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
 
-    .cart-header h3 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 18px;
-      color: var(--primary);
-    }
+			.cart-header h3 {
+				font-family: 'Bebas Neue', sans-serif;
+				font-size: 18px;
+				color: var(--primary);
+			}
 
-    .close-cart {
-      background: none;
-      border: none;
-      color: var(--text);
-      font-size: 24px;
-      cursor: pointer;
-    }
+			.close-cart {
+				background: none;
+				border: none;
+				color: var(--text);
+				font-size: 24px;
+				cursor: pointer;
+			}
 
-    .cart-items {
-      flex: 1;
-      overflow-y: auto;
-      padding: 12px;
-    }
+			.cart-items {
+				flex: 1;
+				overflow-y: auto;
+				padding: 12px;
+			}
 
-    .cart-item {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 12px;
-      margin-bottom: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+			.cart-item {
+				background: var(--card);
+				border: 1px solid var(--border);
+				border-radius: 6px;
+				padding: 12px;
+				margin-bottom: 10px;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
 
-    .cart-item-info {
-      flex: 1;
-    }
+			.cart-item-info {
+				flex: 1;
+			}
 
-    .cart-item-name {
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 4px;
-    }
+			.cart-item-name {
+				font-weight: 600;
+				color: var(--text);
+				margin-bottom: 4px;
+			}
 
-    .cart-item-price {
-      color: var(--secondary);
-      font-size: 12px;
-      font-weight: 700;
-    }
+			.cart-item-price {
+				color: var(--secondary);
+				font-size: 12px;
+				font-weight: 700;
+			}
 
-    .cart-item-controls {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+			.cart-item-controls {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+			}
 
-    .cart-item-btn {
-      background: var(--primary);
-      color: var(--secondary);
-      border: none;
-      width: 24px;
-      height: 24px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: 700;
-      transition: all 0.2s;
-    }
+			.cart-item-btn {
+				background: var(--primary);
+				color: var(--secondary);
+				border: none;
+				width: 24px;
+				height: 24px;
+				border-radius: 4px;
+				cursor: pointer;
+				font-weight: 700;
+				transition: all 0.2s;
+			}
 
-    .cart-item-btn:hover { transform: scale(1.1); }
+			.cart-item-btn:hover { transform: scale(1.1); }
 
-    .cart-item-qty {
-      width: 30px;
-      text-align: center;
-      color: var(--text);
-      font-weight: 600;
-    }
+			.cart-item-qty {
+				width: 30px;
+				text-align: center;
+				color: var(--text);
+				font-weight: 600;
+			}
 
-    .cart-item-remove {
-      background: rgba(255, 215, 0, 0.2);
-      color: var(--primary);
-      border: none;
-      width: 24px;
-      height: 24px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 12px;
-      transition: all 0.2s;
-    }
+			.cart-item-remove {
+				background: rgba(255, 215, 0, 0.2);
+				color: var(--primary);
+				border: none;
+				width: 24px;
+				height: 24px;
+				border-radius: 4px;
+				cursor: pointer;
+				font-size: 12px;
+				transition: all 0.2s;
+			}
 
-    .cart-item-remove:hover { background: rgba(255, 215, 0, 0.4); }
+			.cart-item-remove:hover { background: rgba(255, 215, 0, 0.4); }
 
-    .cart-empty {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 200px;
-      color: var(--text-muted);
-      text-align: center;
-    }
+			.cart-empty {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				height: 200px;
+				color: var(--text-muted);
+				text-align: center;
+			}
 
-    .cart-footer {
-      padding: 16px;
-      border-top: 1px solid var(--border);
-      background: var(--card);
-    }
+			.cart-footer {
+				padding: 16px;
+				border-top: 1px solid var(--border);
+				background: var(--card);
+			}
 
-    .cart-total {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 12px;
-      font-size: 16px;
-      font-weight: 700;
-    }
+			.cart-total {
+				display: flex;
+				justify-content: space-between;
+				margin-bottom: 12px;
+				font-size: 16px;
+				font-weight: 700;
+			}
 
-    .cart-total span { color: var(--text-muted); }
-    .cart-total strong { color: var(--secondary); text-shadow: 0 0 8px rgba(255, 215, 0, 0.5); }
+			.cart-total span { color: var(--text-muted); }
+			.cart-total strong { color: var(--secondary); text-shadow: 0 0 8px rgba(255, 215, 0, 0.5); }
 
-    .btn-checkout {
-      width: 100%;
-      padding: 12px;
-      background: var(--primary);
-      color: var(--secondary);
-      border: none;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: 14px;
-      cursor: pointer;
-      transition: all 0.2s;
-      box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
-    }
+			.btn-checkout {
+				width: 100%;
+				padding: 12px;
+				background: var(--primary);
+				color: var(--secondary);
+				border: none;
+				border-radius: 8px;
+				font-weight: 700;
+				font-size: 14px;
+				cursor: pointer;
+				transition: all 0.2s;
+				box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+			}
 
-    .btn-checkout:hover { transform: scale(1.02); box-shadow: 0 0 20px var(--primary); }
-    .btn-checkout:active { transform: scale(0.98); }
+			.btn-checkout:hover { transform: scale(1.02); box-shadow: 0 0 20px var(--primary); }
+			.btn-checkout:active { transform: scale(0.98); }
 
-    /* ── MODAL CHECKOUT ── */
-    .checkout-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.9);
-      z-index: 300;
-      display: flex;
-      align-items: flex-end;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s;
-    }
+			/* ── MODAL CHECKOUT ── */
+			.checkout-overlay {
+				position: fixed;
+				inset: 0;
+				background: rgba(0, 0, 0, 0.9);
+				z-index: 300;
+				display: flex;
+				align-items: flex-end;
+				opacity: 0;
+				pointer-events: none;
+				transition: opacity 0.3s;
+			}
 
-    .checkout-overlay.open {
-      opacity: 1;
-      pointer-events: all;
-    }
+			.checkout-overlay.open {
+				opacity: 1;
+				pointer-events: all;
+			}
 
-    .checkout-modal {
-      width: 100%;
-      max-width: 100%;
-      background: var(--surface);
-      border-top: 3px solid var(--primary);
-      border-radius: 20px 20px 0 0;
-      padding: 20px;
-      max-height: 90vh;
-      overflow-y: auto;
-      transform: translateY(100%);
-      transition: transform 0.3s ease;
-    }
+			.checkout-modal {
+				width: 100%;
+				max-width: 100%;
+				background: var(--surface);
+				border-top: 3px solid var(--primary);
+				border-radius: 20px 20px 0 0;
+				padding: 20px;
+				max-height: 90vh;
+				overflow-y: auto;
+				transform: translateY(100%);
+				transition: transform 0.3s ease;
+			}
 
-    .checkout-overlay.open .checkout-modal {
-      transform: translateY(0);
-    }
+			.checkout-overlay.open .checkout-modal {
+				transform: translateY(0);
+			}
 
-    @media (min-width: 768px) {
-      .checkout-overlay { align-items: center; }
-      .checkout-modal {
-        max-width: 500px;
-        border-radius: 16px;
-        transform: translateY(20px);
-      }
-      .checkout-overlay.open .checkout-modal { transform: translateY(0); }
-    }
+			@media (min-width: 768px) {
+				.checkout-overlay { align-items: center; }
+				.checkout-modal {
+					max-width: 500px;
+					border-radius: 16px;
+					transform: translateY(20px);
+				}
+				.checkout-overlay.open .checkout-modal { transform: translateY(0); }
+			}
 
-    .checkout-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--border);
-    }
+			.checkout-header {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-bottom: 20px;
+				padding-bottom: 12px;
+				border-bottom: 1px solid var(--border);
+			}
 
-    .checkout-header h3 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 20px;
-      color: var(--primary);
-    }
+			.checkout-header h3 {
+				font-family: 'Bebas Neue', sans-serif;
+				font-size: 20px;
+				color: var(--primary);
+			}
 
-    .close-checkout {
-      background: none;
-      border: none;
-      color: var(--text);
-      font-size: 24px;
-      cursor: pointer;
-    }
+			.close-checkout {
+				background: none;
+				border: none;
+				color: var(--text);
+				font-size: 24px;
+				cursor: pointer;
+			}
 
-    .form-group {
-      margin-bottom: 16px;
-    }
+			.form-group {
+				margin-bottom: 16px;
+			}
 
-    .form-group label {
-      display: block;
-      margin-bottom: 6px;
-      font-weight: 600;
-      color: var(--text);
-      font-size: 13px;
-    }
+			.form-group label {
+				display: block;
+				margin-bottom: 6px;
+				font-weight: 600;
+				color: var(--text);
+				font-size: 13px;
+			}
 
-    .form-group input,
-    .form-group textarea,
-    .form-group select {
-      width: 100%;
-      padding: 10px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      color: var(--text);
-      font-family: 'Poppins', sans-serif;
-      font-size: 13px;
-    }
+			.form-group input,
+			.form-group textarea,
+			.form-group select {
+				width: 100%;
+				padding: 10px;
+				background: var(--card);
+				border: 1px solid var(--border);
+				border-radius: 6px;
+				color: var(--text);
+				font-family: 'Poppins', sans-serif;
+				font-size: 13px;
+			}
 
-    .form-group input:focus,
-    .form-group textarea:focus,
-    .form-group select:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
-    }
+			.form-group input:focus,
+			.form-group textarea:focus,
+			.form-group select:focus {
+				outline: none;
+				border-color: var(--primary);
+				box-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+			}
 
-    .checkout-summary {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 12px;
-      margin-bottom: 16px;
-      font-size: 12px;
-    }
+			.checkout-summary {
+				background: var(--card);
+				border: 1px solid var(--border);
+				border-radius: 8px;
+				padding: 12px;
+				margin-bottom: 16px;
+				font-size: 12px;
+			}
 
-    .checkout-summary-item {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 6px;
-      color: var(--text-muted);
-    }
+			.checkout-summary-item {
+				display: flex;
+				justify-content: space-between;
+				margin-bottom: 6px;
+				color: var(--text-muted);
+			}
 
-    .checkout-summary-total {
-      display: flex;
-      justify-content: space-between;
-      padding-top: 8px;
-      border-top: 1px solid var(--border);
-      color: var(--secondary);
-      font-weight: 700;
-    }
+			.checkout-summary-total {
+				display: flex;
+				justify-content: space-between;
+				padding-top: 8px;
+				border-top: 1px solid var(--border);
+				color: var(--secondary);
+				font-weight: 700;
+			}
 
-    .btn-send-order {
-      width: 100%;
-      padding: 14px;
-      background: var(--primary);
-      color: var(--secondary);
-      border: none;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: 14px;
-      cursor: pointer;
-      transition: all 0.2s;
-      box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
-    }
+			.btn-send-order {
+				width: 100%;
+				padding: 14px;
+				background: var(--primary);
+				color: var(--secondary);
+				border: none;
+				border-radius: 8px;
+				font-weight: 700;
+				font-size: 14px;
+				cursor: pointer;
+				transition: all 0.2s;
+				box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+			}
 
-    .btn-send-order:hover { transform: scale(1.02); box-shadow: 0 0 20px var(--primary); }
-    .btn-send-order:active { transform: scale(0.98); }
+			.btn-send-order:hover { transform: scale(1.02); box-shadow: 0 0 20px var(--primary); }
+			.btn-send-order:active { transform: scale(0.98); }
 
-    .footer { text-align: center; padding: 30px; font-size: 11px; color: var(--text-muted); border-top: 1px solid var(--border); margin-top: 40px; }
+			.footer { text-align: center; padding: 30px; font-size: 11px; color: var(--text-muted); border-top: 1px solid var(--border); margin-top: 40px; }
 
-    /* Fix carrito móvil — footer siempre visible */
-.cart-sidebar {
-  display: flex;
-  flex-direction: column;
-}
-.cart-items {
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
-}
-.cart-footer {
-  flex-shrink: 0;
-}
+			/* Fix carrito móvil — footer siempre visible */
+			.cart-sidebar {
+				display: flex;
+				flex-direction: column;
+			}
+			
+			.cart-items {
+				flex: 1;
+				min-height: 0;
+				overflow-y: auto;
+			}
+		
+			.cart-footer {
+				flex-shrink: 0;
+			}
     
-  </style>
-</head>
-<body>
-  <!-- HEADER -->
-  <div class="header">
-    <button class="menu-toggle" id="menuToggle">
-      <span></span><span></span><span></span>
-    </button>
-    <div class="logo-header">PERROS CRIOLLOS</div>
-    <div class="header-right">
-      <button class="cart-btn" id="cartBtn" onclick="toggleCart()">
-        🛒
-        <span class="cart-count" id="cartCount">0</span>
-      </button>
-    </div>
-  </div>
+		</style>
+	</head>
+	<body>
+		<!-- HEADER -->
+		<div class="header">
+			<button class="menu-toggle" id="menuToggle">
+				<span></span><span></span><span></span>
+			</button>
+			<div class="logo-header">PERROS CRIOLLOS</div>
+			<div class="header-right">
+				<button class="cart-btn" id="cartBtn" onclick="toggleCart()">
+					🛒
+					<span class="cart-count" id="cartCount">0</span>
+				</button>
+			</div>
+		</div>
 
-  <!-- SIDEBAR MENU -->
-  <div class="sidebar" id="sidebar">
-    <div class="sidebar-header">
-      <div class="sidebar-title">Menú</div>
-      <button class="close-menu" id="closeMenu">✕</button>
-    </div>
-    <nav class="sidebar-nav" id="sidebarNav"></nav>
-  </div>
+		<!-- SIDEBAR MENU -->
+		<div class="sidebar" id="sidebar">
+			<div class="sidebar-header">
+				<div class="sidebar-title">Menú</div>
+				<button class="close-menu" id="closeMenu">✕</button>
+			</div>
+			<nav class="sidebar-nav" id="sidebarNav"></nav>
+		</div>
 
-  <div class="overlay" id="overlay"></div>
+		<div class="overlay" id="overlay"></div>
 
-  <!-- CARRITO SIDEBAR -->
-  <div class="cart-sidebar" id="cartSidebar">
-    <div class="cart-header">
-      <h3>🛒 Tu Pedido</h3>
-      <button class="close-cart" onclick="toggleCart()">✕</button>
-    </div>
-    <div class="cart-items" id="cartItems"></div>
-    <div class="cart-empty" id="cartEmpty">
-      <div style="font-size: 40px;">🛒</div>
-      <p>Tu carrito está vacío</p>
-      <span style="font-size: 12px;">¡Agrega algo delicioso!</span>
-    </div>
-    <div class="cart-footer">
-      <div class="cart-total">
-        <span>Total:</span>
-        <strong id="cartTotal">$0</strong>
-      </div>
-      <button class="btn-checkout" id="checkoutBtn" onclick="openCheckout()" style="display:none;">
-        Hacer Pedido
-      </button>
-    </div>
-  </div>
+		<!-- CARRITO SIDEBAR -->
+		<div class="cart-sidebar" id="cartSidebar">
+			<div class="cart-header">
+				<h3>🛒 Tu Pedido</h3>
+				<button class="close-cart" onclick="toggleCart()">✕</button>
+			</div>
+			<div class="cart-items" id="cartItems"></div>
+			<div class="cart-empty" id="cartEmpty">
+				<div style="font-size: 40px;">🛒</div>
+				<p>Tu carrito está vacío</p>
+				<span style="font-size: 12px;">¡Agrega algo delicioso!</span>
+			</div>
+			<div class="cart-footer">
+				<div class="cart-total">
+					<span>Total:</span>
+					<strong id="cartTotal">$0</strong>
+				</div>
+				<button class="btn-checkout" id="checkoutBtn" onclick="openCheckout()" style="display:none;">
+					Hacer Pedido
+				</button>
+			</div>
+		</div>
 
-  <!-- CHECKOUT MODAL -->
-  <div class="checkout-overlay" id="checkoutOverlay">
-    <div class="checkout-modal">
-      <div class="checkout-header">
-        <h3>Finalizar Pedido</h3>
-        <button class="close-checkout" onclick="closeCheckout()">✕</button>
-      </div>
-      <form onsubmit="sendWhatsAppOrder(event)">
-        <div class="form-group">
-          <label>👤 Tu Nombre</label>
-          <input type="text" id="clientName" placeholder="Ej: Juan Pérez" required>
-        </div>
-        <div class="form-group">
-          <label>📍 Dirección de Entrega</label>
-          <textarea id="clientAddress" rows="3" placeholder="Ej: Av. Principal, Edificio Los Pinos, Piso 2, Apt 4" required></textarea>
-        </div>
-        <div class="form-group">
-          <label>💳 Método de Pago</label>
-          <select id="paymentMethod" required>
-            <option value="Efectivo">💵 Efectivo</option>
-            <option value="Pago Móvil">📱 Pago Móvil</option>
-            <option value="Transferencia">🏦 Transferencia</option>
-            <option value="Tarjeta">💳 Tarjeta</option>
-          </select>
-        </div>
-        <div class="checkout-summary" id="checkoutSummary"></div>
-        <button type="submit" class="btn-send-order">
-          📱 Enviar Pedido por WhatsApp
-        </button>
-      </form>
-    </div>
-  </div>
+		<!-- CHECKOUT MODAL -->
+		<div class="checkout-overlay" id="checkoutOverlay">
+			<div class="checkout-modal">
+				<div class="checkout-header">
+					<h3>Finalizar Pedido</h3>
+					<button class="close-checkout" onclick="closeCheckout()">✕</button>
+				</div>
+				<form onsubmit="sendWhatsAppOrder(event)">
+					<div class="form-group">
+						<label>👤 Tu Nombre</label>
+						<input type="text" id="clientName" placeholder="Ej: Juan Pérez" required>
+					</div>
+					<div class="form-group">
+						<label>📍 Dirección de Entrega</label>
+						<textarea id="clientAddress" rows="3" placeholder="Ej: Av. Principal, Edificio Los Pinos, Piso 2, Apt 4" required></textarea>
+					</div>
+					<div class="form-group">
+						<label>💳 Método de Pago</label>
+						<select id="paymentMethod" required>
+							<option value="Efectivo">💵 Efectivo</option>
+							<option value="Pago Móvil">📱 Pago Móvil</option>
+							<option value="Transferencia">🏦 Transferencia</option>
+							<option value="Tarjeta">💳 Tarjeta</option>
+						</select>
+					</div>
+					<div class="checkout-summary" id="checkoutSummary"></div>
+					<button type="submit" class="btn-send-order">
+						📱 Enviar Pedido por WhatsApp
+					</button>
+				</form>
+			</div>
+		</div>
 
-<!-- MODAL DE PERSONALIZACIÓN -->
-  <div id="customOverlay" style="
-    position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:400;
-    display:flex;align-items:flex-end;justify-content:center;
-    opacity:0;pointer-events:none;transition:opacity 0.25s;">
-    <div id="customModal" style="
-      width:100%;max-width:480px;max-height:88vh;overflow-y:auto;
-      background:#1a1a1a;border-top:3px solid #FFD700;border-radius:20px 20px 0 0;
-      padding:20px;transform:translateY(100%);transition:transform 0.3s ease;">
+		<!-- MODAL DE PERSONALIZACIÓN -->
+		<div id="customOverlay" style="
+			position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:400;
+			display:flex;align-items:flex-end;justify-content:center;
+			opacity:0;pointer-events:none;transition:opacity 0.25s;">
+			<div id="customModal" style="
+			  width:100%;max-width:480px;max-height:88vh;overflow-y:auto;
+			  background:#1a1a1a;border-top:3px solid #FFD700;border-radius:20px 20px 0 0;
+			  padding:20px;transform:translateY(100%);transition:transform 0.3s ease;">
 
-      <!-- Header -->
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid #333;">
-        <div>
-          <div id="customName" style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#FFD700;text-shadow:0 0 8px rgba(255,215,0,0.5)"></div>
-          <div id="customBasePrice" style="font-size:13px;color:#FFD700;font-weight:700;"></div>
-        </div>
-        <button onclick="closeCustomModal()" style="background:none;border:none;color:#fff;font-size:26px;cursor:pointer;">✕</button>
-      </div>
+				<!-- Header -->
+				<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid #333;">
+					<div>
+						<div id="customName" style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#FFD700;text-shadow:0 0 8px rgba(255,215,0,0.5)"></div>
+						<div id="customBasePrice" style="font-size:13px;color:#FFD700;font-weight:700;"></div>
+					</div>
+					<button onclick="closeCustomModal()" style="background:none;border:none;color:#fff;font-size:26px;cursor:pointer;">✕</button>
+				</div>
 
-      <!-- Precio total en tiempo real -->
-      <div style="background:#252525;border:2px solid #FF0000;border-radius:8px;padding:12px 16px;margin-bottom:20px;
-        display:flex;justify-content:space-between;align-items:center;box-shadow:0 0 12px rgba(255,0,0,0.3);">
-        <span style="font-size:13px;color:#b0b0b0;">Total:</span>
-        <span id="customTotal" style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:#FFD700;text-shadow:0 0 8px rgba(255,215,0,0.5)">$0</span>
-      </div>
+				<!-- Precio total en tiempo real -->
+				<div style="background:#252525;border:2px solid #FF0000;border-radius:8px;padding:12px 16px;margin-bottom:20px;
+					display:flex;justify-content:space-between;align-items:center;box-shadow:0 0 12px rgba(255,0,0,0.3);">
+					<span style="font-size:13px;color:#b0b0b0;">Total:</span>
+					<span id="customTotal" style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:#FFD700;text-shadow:0 0 8px rgba(255,215,0,0.5)">$0</span>
+				</div>
 
-      <!-- Sección: Toppings Platino -->
-      <div id="secToppingsPlatino" style="margin-bottom:20px;">
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#FFD700;margin-bottom:4px;letter-spacing:1px;">
-          ⭐ TOPPINGS PLATINO
-        </div>
-        <div style="font-size:11px;color:#b0b0b0;margin-bottom:10px;">Elige los que quieras — sin costo adicional</div>
-        <div id="listToppingsPlatino" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
-      </div>
+				<!-- Sección: Toppings Platino -->
+				<div id="secToppingsPlatino" style="margin-bottom:20px;">
+					<div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#FFD700;margin-bottom:4px;letter-spacing:1px;">
+						⭐ TOPPINGS PLATINO
+					</div>
+					<div style="font-size:11px;color:#b0b0b0;margin-bottom:10px;">Elige los que quieras — sin costo adicional</div>
+					<div id="listToppingsPlatino" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
+				</div>
 
-      <!-- Sección: Toppings Premium -->
-      <div id="secToppingsPremium" style="margin-bottom:20px;">
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#FFD700;margin-bottom:4px;letter-spacing:1px;">
-          🔥 TOPPINGS PREMIUM
-        </div>
-        <div style="font-size:11px;color:#b0b0b0;margin-bottom:10px;">+ $4.000 c/u</div>
-        <div id="listToppingsPremium" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
-      </div>
+				<!-- Sección: Toppings Premium -->
+				<div id="secToppingsPremium" style="margin-bottom:20px;">
+					<div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#FFD700;margin-bottom:4px;letter-spacing:1px;">
+						🔥 TOPPINGS PREMIUM
+					</div>
+					<div style="font-size:11px;color:#b0b0b0;margin-bottom:10px;">+ $4.000 c/u</div>
+					<div id="listToppingsPremium" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
+				</div>
 
-      <!-- Sección: Salsas -->
-      <div id="secSalsas" style="margin-bottom:20px;">
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#FFD700;margin-bottom:4px;letter-spacing:1px;">
-          🥫 SALSAS
-        </div>
-        <div style="font-size:11px;color:#b0b0b0;margin-bottom:10px;">Elige las que quieras — sin costo adicional</div>
-        <div id="listSalsas" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
-      </div>
+				<!-- Sección: Salsas -->
+				<div id="secSalsas" style="margin-bottom:20px;">
+					<div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#FFD700;margin-bottom:4px;letter-spacing:1px;">
+						🥫 SALSAS
+					</div>
+					<div style="font-size:11px;color:#b0b0b0;margin-bottom:10px;">Elige las que quieras — sin costo adicional</div>
+					<div id="listSalsas" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
+				</div>
 
-      <!-- Cantidad -->
-      <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:20px;padding:12px;background:#252525;border-radius:8px;">
-        <button id="btnMenos" style="background:#FF0000;color:#FFD700;border:none;width:36px;height:36px;border-radius:50%;font-size:20px;font-weight:700;cursor:pointer;box-shadow:0 0 8px rgba(255,0,0,0.4);">−</button>
-        <span id="customQty" style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;min-width:40px;text-align:center;">1</span>
-        <button id="btnMas" style="background:#FF0000;color:#FFD700;border:none;width:36px;height:36px;border-radius:50%;font-size:20px;font-weight:700;cursor:pointer;box-shadow:0 0 8px rgba(255,0,0,0.4);">+</button>
-      </div>
+				<!-- Cantidad -->
+				<div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:20px;padding:12px;background:#252525;border-radius:8px;">
+					<button id="btnMenos" style="background:#FF0000;color:#FFD700;border:none;width:36px;height:36px;border-radius:50%;font-size:20px;font-weight:700;cursor:pointer;box-shadow:0 0 8px rgba(255,0,0,0.4);">−</button>
+					<span id="customQty" style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;min-width:40px;text-align:center;">1</span>
+					<button id="btnMas" style="background:#FF0000;color:#FFD700;border:none;width:36px;height:36px;border-radius:50%;font-size:20px;font-weight:700;cursor:pointer;box-shadow:0 0 8px rgba(255,0,0,0.4);">+</button>
+				</div>
 
-      <!-- Botón agregar al carrito -->
-      <button id="btnAgregarCarrito" style="
-        width:100%;padding:14px;background:#FF0000;color:#FFD700;border:none;border-radius:8px;
-        font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;cursor:pointer;
-        box-shadow:0 0 15px rgba(255,0,0,0.5);transition:all 0.2s;">
-        🛒 AGREGAR AL CARRITO
-      </button>
-    </div>
-  </div>
+				<!-- Botón agregar al carrito -->
+				<button id="btnAgregarCarrito" style="
+				width:100%;padding:14px;background:#FF0000;color:#FFD700;border:none;border-radius:8px;
+				font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;cursor:pointer;
+				box-shadow:0 0 15px rgba(255,0,0,0.5);transition:all 0.2s;">
+					🛒 AGREGAR AL CARRITO
+				</button>
+			</div>
+		</div>
   
-  <!-- MAIN CONTENT -->
-  <div class="main">
-    <div class="hero">
-      <img src="imgs/logo.jpg" alt="Perros Criollos" class="hero-logo">
-      <div class="hero-title">PERROS CRIOLLOS</div>
-      <div class="hero-subtitle">Perros Calientes • Hamburguesas • Salchipapas</div>
-    </div>
-    <div id="mainContent"></div>
-  </div>
+		<!-- MAIN CONTENT -->
+		<div class="main">
+			<div class="hero">
+				<img src="imgs/logo.jpg" alt="Perros Criollos" class="hero-logo">
+				<div class="hero-title">PERROS CRIOLLOS</div>
+				<div class="hero-subtitle">Perros Calientes • Hamburguesas • Salchipapas</div>
+			</div>
+			<div id="mainContent"></div>
+		</div>
 
-  <div class="footer">© 2026 PERROS CRIOLLOS · Todos los derechos reservados</div>
+		<div class="footer">© 2026 PERROS CRIOLLOS · Todos los derechos reservados</div>
 
-<script>
-    // ── SUPABASE CONFIG ──
-    const SUPABASE_URL = 'https://tllpmdhkdlqoqpnqmuwn.supabase.co';
-    const SUPABASE_KEY = 'sb_publishable_PqQsGWYjDAu8oq9ABB1hnQ_658qW8RB';
-    const RESTAURANTE_SLUG = 'perroscriollos';
-    const WHATSAPP_NUMBER  = '573043632573';
-    const RESTAURANT_NAME  = 'Perros Criollos';
+		<script>
+			// ── SUPABASE CONFIG ──
+			const SUPABASE_URL = 'https://tllpmdhkdlqoqpnqmuwn.supabase.co';
+			const SUPABASE_KEY = 'sb_publishable_PqQsGWYjDAu8oq9ABB1hnQ_658qW8RB';
+			const RESTAURANTE_SLUG = 'perroscriollos';
+			const WHATSAPP_NUMBER  = '573043632573';
+			const RESTAURANT_NAME  = 'Perros Criollos';
 
-    // ── ESTADO ──
-    let restaurante = null;
-    let categorias  = [];
-    let productos   = [];
-    let cart        = [];
+			// ── ESTADO ──
+			let restaurante = null;
+			let categorias  = [];
+			let productos   = [];
+			let cart        = [];
 
-    // Estado del modal de personalización
-    let customProduct      = null;
-    let customEditingKey   = null;
-    let customQty          = 1;
-    let selectedPlatino    = new Set();
-    let selectedPremium    = new Set();
-    let selectedSalsas     = new Set();
+			// Estado del modal de personalización
+			let customProduct      = null;
+			let customEditingKey   = null;
+			let customQty          = 1;
+			let selectedPlatino    = new Set();
+			let selectedPremium    = new Set();
+			let selectedSalsas     = new Set();
 
-    // ── API ──
-    async function sbFetch(tabla, params = '') {
-      const res = await fetch(`${SUPABASE_URL}/rest/v1/${tabla}?${params}`, {
-        headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
-      });
-      if (!res.ok) throw new Error(`Error ${res.status}`);
-      return res.json();
-    }
+			// ── API ──
+			async function sbFetch(tabla, params = '') {
+				const res = await fetch(`${SUPABASE_URL}/rest/v1/${tabla}?${params}`, {
+					headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
+				});
+				if (!res.ok) throw new Error(`Error ${res.status}`);
+				return res.json();
+			}
 
-    // ── INIT ──
-    async function init() {
-      try {
-        const restData = await sbFetch('restaurantes', `slug=eq.${RESTAURANTE_SLUG}&select=*`);
-        if (!restData.length) throw new Error('No encontrado');
-        restaurante = restData[0];
+			// ── INIT ──
+			async function init() {
+				try {
+					const restData = await sbFetch('restaurantes', `slug=eq.${RESTAURANTE_SLUG}&select=*`);
+					if (!restData.length) throw new Error('No encontrado');
+					restaurante = restData[0];
 
-        if (restaurante.activo === false) {
-          document.getElementById('mainContent').innerHTML = `
-            <div style="text-align:center;padding:80px 20px;">
-              <div style="font-size:48px;margin-bottom:16px;">🔒</div>
-              <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--primary);">Servicio no disponible</div>
-              <div style="font-size:14px;color:var(--text-muted);margin-top:8px;">Este menú no está disponible en este momento.</div>
-            </div>`;
-          return;
-        }
+					if (restaurante.activo === false) {
+						document.getElementById('mainContent').innerHTML = `
+						<div style="text-align:center;padding:80px 20px;">
+							<div style="font-size:48px;margin-bottom:16px;">🔒</div>
+							<div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--primary);">Servicio no disponible</div>
+							<div style="font-size:14px;color:var(--text-muted);margin-top:8px;">Este menú no está disponible en este momento.</div>
+						</div>`;
+						return;
+					}
 
-        categorias = await sbFetch('categorias',
-          `restaurante_id=eq.${restaurante.id}&select=*&order=orden.asc`);
-        productos = await sbFetch('productos',
-          `restaurante_id=eq.${restaurante.id}&disponible=eq.true&select=*&order=precio_numerico.asc`);
+					categorias = await sbFetch('categorias', `restaurante_id=eq.${restaurante.id}&select=*&order=orden.asc`);
+					productos = await sbFetch('productos', `restaurante_id=eq.${restaurante.id}&disponible=eq.true&select=*&order=precio_numerico.asc`);
 
-        buildSidebar();
-        buildMenu();
-        loadCartFromStorage();
-        initScrollEffects();
-        initCustomModalEvents();
-        fixCartLayout();
+					buildSidebar();
+					buildMenu();
+					loadCartFromStorage();
+					initScrollEffects();
+					initCustomModalEvents();
+					fixCartLayout();
 
-      } catch(e) {
-        console.error(e);
-        document.getElementById('mainContent').innerHTML =
-          `<p style="text-align:center;padding:40px;color:var(--text-muted)">No se pudo cargar el menú.</p>`;
-      }
-    }
+				} catch(e) {
+					console.error(e);
+					document.getElementById('mainContent').innerHTML = `<p style="text-align:center;padding:40px;color:var(--text-muted)">No se pudo cargar el menú.</p>`;
+				}
+			}
 
-    // ── MODAL PERSONALIZACIÓN ──
-    // editingCartKey: si se pasa, estamos editando un ítem existente del carrito
-    function openCustomModal(productId, editingCartKey = null) {
-      const p = productos.find(pr => pr.id === productId);
-      if (!p) return;
-      customProduct   = p;
-      customEditingKey = editingCartKey;
+			// ── MODAL PERSONALIZACIÓN ──
+			// editingCartKey: si se pasa, estamos editando un ítem existente del carrito
+			function openCustomModal(productId, editingCartKey = null) {
+				const p = productos.find(pr => pr.id === productId);
+				if (!p) return;
+				customProduct   = p;
+				customEditingKey = editingCartKey;
 
-      // Si editamos, precargamos la selección existente
-      if (editingCartKey) {
-        const cartItem = cart.find(i => i.cartKey === editingCartKey);
-        customQty = cartItem ? cartItem.cantidad : 1;
-        // Parsear descripcion para recuperar selecciones
-        const desc = cartItem?.descripcion || '';
-        const platMatch   = desc.match(/Toppings: ([^|]+)/);
-        const premMatch   = desc.match(/Premium: ([^|]+)/);
-        const salsaMatch  = desc.match(/Salsas: ([^|]+)/);
-        selectedPlatino = new Set(platMatch  ? platMatch[1].trim().split(', ')  : []);
-        selectedPremium = new Set(premMatch  ? premMatch[1].trim().split(', ')  : []);
-        selectedSalsas  = new Set(salsaMatch ? salsaMatch[1].trim().split(', ') : []);
-      } else {
-        customQty       = 1;
-        selectedPlatino = new Set();
-        selectedPremium = new Set();
-        selectedSalsas  = new Set();
-      }
+				// Si editamos, precargamos la selección existente
+				if (editingCartKey) {
+					const cartItem = cart.find(i => i.cartKey === editingCartKey);
+					customQty = cartItem ? cartItem.cantidad : 1;
+					// Parsear descripcion para recuperar selecciones
+					const desc = cartItem?.descripcion || '';
+					const platMatch   = desc.match(/Toppings: ([^|]+)/);
+					const premMatch   = desc.match(/Premium: ([^|]+)/);
+					const salsaMatch  = desc.match(/Salsas: ([^|]+)/);
+					selectedPlatino = new Set(platMatch  ? platMatch[1].trim().split(', ')  : []);
+					selectedPremium = new Set(premMatch  ? premMatch[1].trim().split(', ')  : []);
+					selectedSalsas  = new Set(salsaMatch ? salsaMatch[1].trim().split(', ') : []);
+				} else {
+					customQty       = 1;
+					selectedPlatino = new Set();
+					selectedPremium = new Set();
+					selectedSalsas  = new Set();
+				}
 
-      const attr = p.atributos || {};
-      document.getElementById('customName').textContent      = p.nombre;
-      document.getElementById('customBasePrice').textContent = `Precio base: $${p.precio_numerico.toLocaleString('es-CO')}`;
-      document.getElementById('customQty').textContent       = customQty.toString();
-      document.getElementById('btnAgregarCarrito').textContent =
-        editingCartKey ? '✏ GUARDAR CAMBIOS' : '🛒 AGREGAR AL CARRITO';
+				const attr = p.atributos || {};
+				document.getElementById('customName').textContent = p.nombre;
+				document.getElementById('customBasePrice').textContent = `Precio base: $${p.precio_numerico.toLocaleString('es-CO')}`;
+				document.getElementById('customQty').textContent = customQty.toString();
+				document.getElementById('btnAgregarCarrito').textContent = editingCartKey ? '✏ GUARDAR CAMBIOS' : '🛒 AGREGAR AL CARRITO';
 
-      // Toppings platino
-      const listPlatino = document.getElementById('listToppingsPlatino');
-      const secPlatino  = document.getElementById('secToppingsPlatino');
-      listPlatino.innerHTML = '';
-      if (attr.toppings_platino?.length) {
-        secPlatino.style.display = 'block';
-        attr.toppings_platino.forEach(t => {
-          const chip = mkChipModal(t, () => {
-            if (selectedPlatino.has(t)) selectedPlatino.delete(t);
-            else selectedPlatino.add(t);
-            updateCustomTotal();
-          }, selectedPlatino.has(t));
-          listPlatino.appendChild(chip);
-        });
-      } else { secPlatino.style.display = 'none'; }
+				// Toppings platino
+				const listPlatino = document.getElementById('listToppingsPlatino');
+				const secPlatino  = document.getElementById('secToppingsPlatino');
+				listPlatino.innerHTML = '';
+				if (attr.toppings_platino?.length) {
+					secPlatino.style.display = 'block';
+					attr.toppings_platino.forEach(t => {
+						const chip = mkChipModal(t, () => {
+							if (selectedPlatino.has(t)) selectedPlatino.delete(t);
+							else selectedPlatino.add(t);
+							updateCustomTotal();
+						}, selectedPlatino.has(t));
+						listPlatino.appendChild(chip);
+					});
+				} else { secPlatino.style.display = 'none'; }
 
-      // Toppings premium
-      const listPremium = document.getElementById('listToppingsPremium');
-      const secPremium  = document.getElementById('secToppingsPremium');
-      listPremium.innerHTML = '';
-      if (attr.toppings_premium?.length) {
-        secPremium.style.display = 'block';
-        attr.toppings_premium.forEach(t => {
-          const chip = mkChipModal(
-            `${t.nombre} (+$${t.precio.toLocaleString('es-CO')})`,
-            () => {
-              if (selectedPremium.has(t.nombre)) selectedPremium.delete(t.nombre);
-              else selectedPremium.add(t.nombre);
-              updateCustomTotal();
-            }, selectedPremium.has(t.nombre)
-          );
-          listPremium.appendChild(chip);
-        });
-      } else { secPremium.style.display = 'none'; }
+				// Toppings premium
+				const listPremium = document.getElementById('listToppingsPremium');
+				const secPremium  = document.getElementById('secToppingsPremium');
+				listPremium.innerHTML = '';
+				if (attr.toppings_premium?.length) {
+					secPremium.style.display = 'block';
+					attr.toppings_premium.forEach(t => {
+						const chip = mkChipModal(`${t.nombre} (+$${t.precio.toLocaleString('es-CO')})`,
+							() => {
+								if (selectedPremium.has(t.nombre)) selectedPremium.delete(t.nombre);
+								else selectedPremium.add(t.nombre);
+								updateCustomTotal();
+							}, selectedPremium.has(t.nombre)
+						);
+						listPremium.appendChild(chip);
+					});
+				} else { secPremium.style.display = 'none'; }
 
-      // Salsas
-      const listSalsas = document.getElementById('listSalsas');
-      const secSalsas  = document.getElementById('secSalsas');
-      listSalsas.innerHTML = '';
-      if (attr.salsas?.length) {
-        secSalsas.style.display = 'block';
-        attr.salsas.forEach(s => {
-          const chip = mkChipModal(s, () => {
-            if (selectedSalsas.has(s)) selectedSalsas.delete(s);
-            else selectedSalsas.add(s);
-            updateCustomTotal();
-          }, selectedSalsas.has(s));
-          listSalsas.appendChild(chip);
-        });
-      } else { secSalsas.style.display = 'none'; }
+				// Salsas
+				const listSalsas = document.getElementById('listSalsas');
+				const secSalsas  = document.getElementById('secSalsas');
+				listSalsas.innerHTML = '';
+				if (attr.salsas?.length) {
+					secSalsas.style.display = 'block';
+					attr.salsas.forEach(s => {
+						const chip = mkChipModal(s, () => {
+							if (selectedSalsas.has(s)) selectedSalsas.delete(s);
+							else selectedSalsas.add(s);
+							updateCustomTotal();
+						}, selectedSalsas.has(s));
+						listSalsas.appendChild(chip);
+					});
+				} else { secSalsas.style.display = 'none'; }
 
-      updateCustomTotal();
+				updateCustomTotal();
 
-      // Mostrar modal
-      const overlay = document.getElementById('customOverlay');
-      const modal   = document.getElementById('customModal');
-      overlay.style.opacity = '1';
-      overlay.style.pointerEvents = 'all';
-      modal.style.transform = 'translateY(0)';
-      document.body.style.overflow = 'hidden';
-    }
+				// Mostrar modal
+				const overlay = document.getElementById('customOverlay');
+				const modal   = document.getElementById('customModal');
+				overlay.style.opacity = '1';
+				overlay.style.pointerEvents = 'all';
+				modal.style.transform = 'translateY(0)';
+				document.body.style.overflow = 'hidden';
+			}
 
-    function closeCustomModal() {
-      const overlay = document.getElementById('customOverlay');
-      const modal   = document.getElementById('customModal');
-      overlay.style.opacity = '0';
-      overlay.style.pointerEvents = 'none';
-      modal.style.transform = 'translateY(100%)';
-      document.body.style.overflow = '';
-    }
+			function closeCustomModal() {
+				const overlay = document.getElementById('customOverlay');
+				const modal   = document.getElementById('customModal');
+				overlay.style.opacity = '0';
+				overlay.style.pointerEvents = 'none';
+				modal.style.transform = 'translateY(100%)';
+				document.body.style.overflow = '';
+			}
 
-    function mkChipModal(label, onClick, preSelected = false) {
-      const chip = document.createElement('button');
-      chip.type = 'button';
-      chip.textContent = label;
-      chip.dataset.active = preSelected ? 'true' : 'false';
-      const activeStyle   = 'padding:7px 12px;border-radius:20px;border:1px solid #FF0000;background:rgba(255,0,0,0.15);color:#FFD700;font-family:"Poppins",sans-serif;font-size:12px;cursor:pointer;transition:all 0.18s;white-space:nowrap;box-shadow:0 0 8px rgba(255,0,0,0.3);';
-const inactiveStyle = 'padding:7px 12px;border-radius:20px;border:1px solid #333;background:#252525;color:#b0b0b0;font-family:"Poppins",sans-serif;font-size:12px;cursor:pointer;transition:all 0.18s;white-space:nowrap;';
-      chip.style.cssText = preSelected ? activeStyle : inactiveStyle;
-      chip.addEventListener('click', () => {
-        const active = chip.dataset.active === 'true';
-        chip.dataset.active = !active;
-        chip.style.cssText = !active ? activeStyle : inactiveStyle;
-        onClick();
-      });
-      return chip;
-    }
+			function mkChipModal(label, onClick, preSelected = false) {
+				const chip = document.createElement('button');
+				chip.type = 'button';
+				chip.textContent = label;
+				chip.dataset.active = preSelected ? 'true' : 'false';
+				const activeStyle   = 'padding:7px 12px;border-radius:20px;border:1px solid #FF0000;background:rgba(255,0,0,0.15);color:#FFD700;font-family:"Poppins",sans-serif;font-size:12px;cursor:pointer;transition:all 0.18s;white-space:nowrap;box-shadow:0 0 8px rgba(255,0,0,0.3);';
+				const inactiveStyle = 'padding:7px 12px;border-radius:20px;border:1px solid #333;background:#252525;color:#b0b0b0;font-family:"Poppins",sans-serif;font-size:12px;cursor:pointer;transition:all 0.18s;white-space:nowrap;';
+				chip.style.cssText = preSelected ? activeStyle : inactiveStyle;
+				chip.addEventListener('click', () => {
+					const active = chip.dataset.active === 'true';
+					chip.dataset.active = !active;
+					chip.style.cssText = !active ? activeStyle : inactiveStyle;
+					onClick();
+				});
+				return chip;
+			}
 
-    function updateCustomTotal() {
-      if (!customProduct) return;
-      const attr         = customProduct.atributos || {};
-      const precioBase   = customProduct.precio_numerico;
-      const extrasPrec   = (attr.toppings_premium || [])
-        .filter(t => selectedPremium.has(t.nombre))
-        .reduce((sum, t) => sum + t.precio, 0);
-      const totalUnit    = precioBase + extrasPrec;
-      const total        = totalUnit * customQty;
-      document.getElementById('customTotal').textContent = '$' + total.toLocaleString('es-CO');
-    }
+			function updateCustomTotal() {
+				if (!customProduct) return;
+				const attr = customProduct.atributos || {};
+				const precioBase = customProduct.precio_numerico;
+				const extrasPrec = (attr.toppings_premium || [])
+				.filter(t => selectedPremium.has(t.nombre))
+				.reduce((sum, t) => sum + t.precio, 0);
+				const totalUnit = precioBase + extrasPrec;
+				const total = totalUnit * customQty;
+				document.getElementById('customTotal').textContent = '$' + total.toLocaleString('es-CO');
+			}
 
-    function initCustomModalEvents() {
-      document.getElementById('btnMenos').addEventListener('click', () => {
-        if (customQty > 1) { customQty--; document.getElementById('customQty').textContent = customQty; updateCustomTotal(); }
-      });
-      document.getElementById('btnMas').addEventListener('click', () => {
-        customQty++; document.getElementById('customQty').textContent = customQty; updateCustomTotal();
-      });
-      document.getElementById('btnAgregarCarrito').addEventListener('click', () => {
-        addCustomToCart();
-      });
-      // Cerrar al tocar fuera del modal
-      document.getElementById('customOverlay').addEventListener('click', (e) => {
-        if (e.target.id === 'customOverlay') closeCustomModal();
-      });
-    }
+			function initCustomModalEvents() {
+				document.getElementById('btnMenos').addEventListener('click', () => {
+					if (customQty > 1) { customQty--; document.getElementById('customQty').textContent = customQty; updateCustomTotal(); }
+				});
+				document.getElementById('btnMas').addEventListener('click', () => {
+					customQty++; document.getElementById('customQty').textContent = customQty; updateCustomTotal();
+				});
+				document.getElementById('btnAgregarCarrito').addEventListener('click', () => {
+					addCustomToCart();
+				});
+				// Cerrar al tocar fuera del modal
+				document.getElementById('customOverlay').addEventListener('click', (e) => {
+					if (e.target.id === 'customOverlay') closeCustomModal();
+				});
+			}
 
-    function addCustomToCart() {
-      if (!customProduct) return;
-      const attr       = customProduct.atributos || {};
-      const extrasPrec = (attr.toppings_premium || [])
-        .filter(t => selectedPremium.has(t.nombre))
-        .reduce((sum, t) => sum + t.precio, 0);
-      const precioUnit = customProduct.precio_numerico + extrasPrec;
+			function addCustomToCart() {
+				if (!customProduct) return;
+				const attr = customProduct.atributos || {};
+				const extrasPrec = (attr.toppings_premium || [])
+				.filter(t => selectedPremium.has(t.nombre))
+				.reduce((sum, t) => sum + t.precio, 0);
+				const precioUnit = customProduct.precio_numerico + extrasPrec;
 
-      const partes = [];
-      if (selectedPlatino.size) partes.push(`Toppings: ${[...selectedPlatino].join(', ')}`);
-      if (selectedPremium.size) partes.push(`Premium: ${[...selectedPremium].join(', ')}`);
-      if (selectedSalsas.size)  partes.push(`Salsas: ${[...selectedSalsas].join(', ')}`);
-      const descripcion = partes.join(' | ');
-      const cartKey = `${customProduct.id}__${descripcion}`;
+				const partes = [];
+				if (selectedPlatino.size) partes.push(`Toppings: ${[...selectedPlatino].join(', ')}`);
+				if (selectedPremium.size) partes.push(`Premium: ${[...selectedPremium].join(', ')}`);
+				if (selectedSalsas.size)  partes.push(`Salsas: ${[...selectedSalsas].join(', ')}`);
+				const descripcion = partes.join(' | ');
+				const cartKey = `${customProduct.id}__${descripcion}`;
 
-      if (customEditingKey) {
-        // Edición: quitar el ítem viejo y reemplazar con la nueva configuración
-        cart = cart.filter(i => i.cartKey !== customEditingKey);
-      }
+				if (customEditingKey) {
+					// Edición: quitar el ítem viejo y reemplazar con la nueva configuración
+					cart = cart.filter(i => i.cartKey !== customEditingKey);
+				}
 
-      const existing = cart.find(i => i.cartKey === cartKey);
-      if (existing) {
-        existing.cantidad += customQty;
-      } else {
-        cart.push({ cartKey, id: customProduct.id, name: customProduct.nombre,
-          price: precioUnit, cantidad: customQty, descripcion });
-      }
+				const existing = cart.find(i => i.cartKey === cartKey);
+				if (existing) {
+					existing.cantidad += customQty;
+				} else {
+					cart.push({ cartKey, id: customProduct.id, name: customProduct.nombre,
+					price: precioUnit, cantidad: customQty, descripcion });
+				}
 
-      customEditingKey = null;
-      saveCartToStorage();
-      updateCartUI();
-      closeCustomModal();
+				customEditingKey = null;
+				saveCartToStorage();
+				updateCartUI();
+				closeCustomModal();
 
-      const cartBtn = document.getElementById('cartBtn');
-      cartBtn.style.transform = 'scale(1.2)';
-      setTimeout(() => cartBtn.style.transform = 'scale(1)', 200);
-    }
+				const cartBtn = document.getElementById('cartBtn');
+				cartBtn.style.transform = 'scale(1.2)';
+				setTimeout(() => cartBtn.style.transform = 'scale(1)', 200);
+			}
 
-    // ── CARRITO ──
-    function saveCartToStorage() {
-      localStorage.setItem(`${RESTAURANTE_SLUG}_cart`, JSON.stringify(cart));
-    }
+			// ── CARRITO ──
+			function saveCartToStorage() {
+				localStorage.setItem(`${RESTAURANTE_SLUG}_cart`, JSON.stringify(cart));
+			}
 
-    function loadCartFromStorage() {
-      const saved = localStorage.getItem(`${RESTAURANTE_SLUG}_cart`);
-      if (saved) { cart = JSON.parse(saved); updateCartUI(); }
-    }
+			function loadCartFromStorage() {
+				const saved = localStorage.getItem(`${RESTAURANTE_SLUG}_cart`);
+				if (saved) { cart = JSON.parse(saved); updateCartUI(); }
+			}
 
-    function updateQuantity(cartKey, change) {
-      const item = cart.find(i => i.cartKey === cartKey);
-      if (item) {
-        item.cantidad += change;
-        if (item.cantidad <= 0) cart = cart.filter(i => i.cartKey !== cartKey);
-        saveCartToStorage(); updateCartUI();
-      }
-    }
+			function updateQuantity(cartKey, change) {
+				const item = cart.find(i => i.cartKey === cartKey);
+				if (item) {
+					item.cantidad += change;
+					if (item.cantidad <= 0) cart = cart.filter(i => i.cartKey !== cartKey);
+					saveCartToStorage(); updateCartUI();
+				}
+			}
 
-    function removeFromCart(cartKey) {
-      cart = cart.filter(i => i.cartKey !== cartKey);
-      saveCartToStorage(); updateCartUI();
-    }
+			function removeFromCart(cartKey) {
+				cart = cart.filter(i => i.cartKey !== cartKey);
+				saveCartToStorage(); updateCartUI();
+			}
 
-    function updateCartUI() {
-      const count = cart.reduce((sum, i) => sum + i.cantidad, 0);
-      document.getElementById('cartCount').textContent = count;
+			function updateCartUI() {
+				const count = cart.reduce((sum, i) => sum + i.cantidad, 0);
+				document.getElementById('cartCount').textContent = count;
 
-      const cartItemsDiv = document.getElementById('cartItems');
-      const cartEmptyDiv = document.getElementById('cartEmpty');
-      const checkoutBtn  = document.getElementById('checkoutBtn');
+				const cartItemsDiv = document.getElementById('cartItems');
+				const cartEmptyDiv = document.getElementById('cartEmpty');
+				const checkoutBtn = document.getElementById('checkoutBtn');
 
-      if (!cart.length) {
-        cartItemsDiv.innerHTML = '';
-        cartEmptyDiv.style.display = 'flex';
-        checkoutBtn.style.display  = 'none';
-      } else {
-        cartEmptyDiv.style.display = 'none';
-        checkoutBtn.style.display  = 'block';
-        cartItemsDiv.innerHTML = '';
-        cart.forEach(item => {
-          const div = document.createElement('div');
-          div.className = 'cart-item';
-          // Verificar si el producto tiene opciones editables
-          const prod = productos.find(p => p.id === item.id);
-          const tieneOpc = prod && prod.atributos &&
-            (prod.atributos.toppings_platino?.length || prod.atributos.toppings_premium?.length || prod.atributos.salsas?.length);
+				if (!cart.length) {
+					cartItemsDiv.innerHTML = '';
+					cartEmptyDiv.style.display = 'flex';
+					checkoutBtn.style.display = 'none';
+				} else {
+					cartEmptyDiv.style.display = 'none';
+					checkoutBtn.style.display = 'block';
+					cartItemsDiv.innerHTML = '';
+					cart.forEach(item => {
+					const div = document.createElement('div');
+					div.className = 'cart-item';
+					// Verificar si el producto tiene opciones editables
+					const prod = productos.find(p => p.id === item.id);
+					const tieneOpc = prod && prod.atributos &&
+					(prod.atributos.toppings_platino?.length || prod.atributos.toppings_premium?.length || prod.atributos.salsas?.length);
 
-          div.innerHTML = `
-            <div class="cart-item-info" style="flex:1;min-width:0;">
-              <div class="cart-item-name">${item.name}</div>
-              ${item.descripcion ? `<div style="font-size:10px;color:#888;margin-top:2px;line-height:1.4;word-break:break-word;">${item.descripcion}</div>` : ''}
-              <div class="cart-item-price">$${(item.price * item.cantidad).toLocaleString('es-CO')}</div>
-            </div>
-            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0;margin-left:8px;">
-              ${tieneOpc ? '<button class="btn-edit-cart" style="background:rgba(255,0,0,0.15);color:#FFD700;border:1px solid #FF0000;border-radius:4px;padding:3px 8px;font-size:10px;cursor:pointer;white-space:nowrap;">✏ Editar</button>' : ''}
-              <div class="cart-item-controls">
-                <button class="cart-item-btn">−</button>
-                <div class="cart-item-qty">${item.cantidad}</div>
-                <button class="cart-item-btn">+</button>
-                <button class="cart-item-remove">✕</button>
-              </div>
-            </div>
-          `;
-          div.querySelectorAll('.cart-item-btn')[0].onclick = () => updateQuantity(item.cartKey, -1);
-          div.querySelectorAll('.cart-item-btn')[1].onclick = () => updateQuantity(item.cartKey, 1);
-          div.querySelector('.cart-item-remove').onclick    = () => removeFromCart(item.cartKey);
-          if (tieneOpc) {
-            div.querySelector('.btn-edit-cart').onclick = () => {
-              document.getElementById('cartSidebar').classList.remove('open');
-              document.getElementById('overlay').classList.remove('open');
-              openCustomModal(item.id, item.cartKey);
-            };
-          }
-          cartItemsDiv.appendChild(div);
-        });
-      }
+					div.innerHTML = `
+					<div class="cart-item-info" style="flex:1;min-width:0;">
+						<div class="cart-item-name">${item.name}</div>
+						${item.descripcion ? `<div style="font-size:10px;color:#888;margin-top:2px;line-height:1.4;word-break:break-word;">${item.descripcion}</div>` : ''}
+						<div class="cart-item-price">$${(item.price * item.cantidad).toLocaleString('es-CO')}</div>
+					</div>
+					<div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0;margin-left:8px;">
+						${tieneOpc ? '<button class="btn-edit-cart" style="background:rgba(255,0,0,0.15);color:#FFD700;border:1px solid #FF0000;border-radius:4px;padding:3px 8px;font-size:10px;cursor:pointer;white-space:nowrap;">✏ Editar</button>' : ''}
+						<div class="cart-item-controls">
+							<button class="cart-item-btn">−</button>
+							<div class="cart-item-qty">${item.cantidad}</div>
+							<button class="cart-item-btn">+</button>
+							<button class="cart-item-remove">✕</button>
+						</div>
+					</div>
+					`;
+					div.querySelectorAll('.cart-item-btn')[0].onclick = () => updateQuantity(item.cartKey, -1);
+					div.querySelectorAll('.cart-item-btn')[1].onclick = () => updateQuantity(item.cartKey, 1);
+					div.querySelector('.cart-item-remove').onclick    = () => removeFromCart(item.cartKey);
+					if (tieneOpc) {
+						div.querySelector('.btn-edit-cart').onclick = () => {
+							document.getElementById('cartSidebar').classList.remove('open');
+							document.getElementById('overlay').classList.remove('open');
+							openCustomModal(item.id, item.cartKey);
+						};
+					}
+					cartItemsDiv.appendChild(div);
+				});
+			}
 
-      const total = cart.reduce((sum, i) => sum + i.price * i.cantidad, 0);
-      document.getElementById('cartTotal').textContent = '$' + total.toLocaleString('es-CO');
-    }
+				const total = cart.reduce((sum, i) => sum + i.price * i.cantidad, 0);
+				document.getElementById('cartTotal').textContent = '$' + total.toLocaleString('es-CO');
+			}
 
-    function toggleCart() {
-      document.getElementById('cartSidebar').classList.toggle('open');
-      document.getElementById('overlay').classList.toggle('open');
-    }
+			function toggleCart() {
+				document.getElementById('cartSidebar').classList.toggle('open');
+				document.getElementById('overlay').classList.toggle('open');
+			}
 
-    // ── CHECKOUT ──
-    function openCheckout() {
-      updateCheckoutSummary();
-      document.getElementById('checkoutOverlay').classList.add('open');
-      document.getElementById('cartSidebar').classList.remove('open');
-      document.getElementById('overlay').classList.remove('open');
-    }
+			// ── CHECKOUT ──
+			function openCheckout() {
+				updateCheckoutSummary();
+				document.getElementById('checkoutOverlay').classList.add('open');
+				document.getElementById('cartSidebar').classList.remove('open');
+				document.getElementById('overlay').classList.remove('open');
+			}
 
-    function closeCheckout() {
-      document.getElementById('checkoutOverlay').classList.remove('open');
-    }
+			function closeCheckout() {
+				document.getElementById('checkoutOverlay').classList.remove('open');
+			}
 
-    function updateCheckoutSummary() {
-      const summary = document.getElementById('checkoutSummary');
-      const total   = cart.reduce((sum, i) => sum + i.price * i.cantidad, 0);
-      summary.innerHTML = cart.map(item => `
-        <div class="checkout-summary-item">
-          <span>${item.name} x${item.cantidad}${item.descripcion ? '<br><small style="color:#666">' + item.descripcion + '</small>' : ''}</span>
-          <span>$${(item.price * item.cantidad).toLocaleString('es-CO')}</span>
-        </div>
-      `).join('') + `
-        <div class="checkout-summary-total">
-          <span>Total</span><span>$${total.toLocaleString('es-CO')}</span>
-        </div>`;
-    }
+			function updateCheckoutSummary() {
+				const summary = document.getElementById('checkoutSummary');
+				const total = cart.reduce((sum, i) => sum + i.price * i.cantidad, 0);
+				summary.innerHTML = cart.map(item => `
+				<div class="checkout-summary-item">
+					<span>${item.name} x${item.cantidad}${item.descripcion ? '<br><small style="color:#666">' + item.descripcion + '</small>' : ''}</span>
+					<span>$${(item.price * item.cantidad).toLocaleString('es-CO')}</span>
+				</div>
+				`).join('') + `
+				<div class="checkout-summary-total">
+					<span>Total</span><span>$${total.toLocaleString('es-CO')}</span>
+				</div>`;
+			}
 
-    // ── WHATSAPP ──
-    function sendWhatsAppOrder(event) {
-      event.preventDefault();
-      const name    = document.getElementById('clientName').value;
-      const address = document.getElementById('clientAddress').value;
-      const payment = document.getElementById('paymentMethod').value;
+			// ── WHATSAPP ──
+			function sendWhatsAppOrder(event) {
+				event.preventDefault();
+				const name    = document.getElementById('clientName').value;
+				const address = document.getElementById('clientAddress').value;
+				const payment = document.getElementById('paymentMethod').value;
 
-      let msg = `🌭 *Pedido - ${RESTAURANT_NAME}*\n\n`;
-      msg += `👤 *Cliente:* ${name}\n`;
-      msg += `📍 *Dirección:* ${address}\n`;
-      msg += `💳 *Pago:* ${payment}\n\n`;
-      msg += `🛒 *Pedido:*\n`;
+				let msg = `🌭 *Pedido - ${RESTAURANT_NAME}*\n\n`;
+				msg += `👤 *Cliente:* ${name}\n`;
+				msg += `📍 *Dirección:* ${address}\n`;
+				msg += `💳 *Pago:* ${payment}\n\n`;
+				msg += `🛒 *Pedido:*\n`;
 
-      cart.forEach(item => {
-        msg += `• *${item.name}* x${item.cantidad} = $${(item.price * item.cantidad).toLocaleString('es-CO')}\n`;
-        if (item.descripcion) msg += `  _${item.descripcion}_\n`;
-      });
+				cart.forEach(item => {
+					msg += `• *${item.name}* x${item.cantidad} = $${(item.price * item.cantidad).toLocaleString('es-CO')}\n`;
+					if (item.descripcion) msg += `  _${item.descripcion}_\n`;
+				});
 
-      const total = cart.reduce((sum, i) => sum + i.price * i.cantidad, 0);
-      msg += `\n*TOTAL: $${total.toLocaleString('es-CO')}*`;
+				const total = cart.reduce((sum, i) => sum + i.price * i.cantidad, 0);
+				msg += `\n*TOTAL: $${total.toLocaleString('es-CO')}*`;
 
-      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+				window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
 
-      cart = []; saveCartToStorage(); updateCartUI(); closeCheckout();
-      document.getElementById('clientName').value    = '';
-      document.getElementById('clientAddress').value = '';
-    }
+				cart = []; saveCartToStorage(); updateCartUI(); closeCheckout();
+				document.getElementById('clientName').value    = '';
+				document.getElementById('clientAddress').value = '';
+			}
 
-    // ── SIDEBAR ──
-    function fixCartLayout() {
-      // Garantizar que el footer del carrito siempre sea visible en móvil
-      const cartItems = document.getElementById('cartItems');
-      const cartSidebar = document.getElementById('cartSidebar');
-      if (cartItems && cartSidebar) {
-        cartItems.style.flex = '1';
-        cartItems.style.overflowY = 'auto';
-        cartItems.style.minHeight = '0';
-      }
-    }
+			// ── SIDEBAR ──
+			function fixCartLayout() {
+				// Garantizar que el footer del carrito siempre sea visible en móvil
+				const cartItems = document.getElementById('cartItems');
+				const cartSidebar = document.getElementById('cartSidebar');
+				if (cartItems && cartSidebar) {
+					cartItems.style.flex = '1';
+					cartItems.style.overflowY = 'auto';
+					cartItems.style.minHeight = '0';
+				}
+			}
 
-    function buildSidebar() {
-      const nav = document.getElementById('sidebarNav');
-      nav.innerHTML = '';
-      let first = true;
-      categorias.forEach(cat => {
-        if (!productos.some(p => p.categoria_id === cat.id)) return;
-        const btn = document.createElement('button');
-        btn.className = 'sidebar-link' + (first ? ' active' : '');
-        btn.textContent = `${cat.emoji || ''} ${cat.nombre}`.trim();
-        btn.onclick = () => {
-          document.getElementById(`cat-${cat.id}`)?.scrollIntoView({ behavior: 'smooth' });
-          document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
-          btn.classList.add('active');
-          document.getElementById('sidebar').classList.remove('open');
-          document.getElementById('overlay').classList.remove('open');
-        };
-        nav.appendChild(btn);
-        first = false;
-      });
-    }
+			function buildSidebar() {
+				const nav = document.getElementById('sidebarNav');
+				nav.innerHTML = '';
+				let first = true;
+				categorias.forEach(cat => {
+					if (!productos.some(p => p.categoria_id === cat.id)) return;
+					const btn = document.createElement('button');
+					btn.className = 'sidebar-link' + (first ? ' active' : '');
+					btn.textContent = `${cat.emoji || ''} ${cat.nombre}`.trim();
+					btn.onclick = () => {
+						document.getElementById(`cat-${cat.id}`)?.scrollIntoView({ behavior: 'smooth' });
+						document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+						btn.classList.add('active');
+						document.getElementById('sidebar').classList.remove('open');
+						document.getElementById('overlay').classList.remove('open');
+					};
+					nav.appendChild(btn);
+					first = false;
+				});
+			}
 
-    // ── MENÚ ──
-    function buildMenu() {
-      const main = document.getElementById('mainContent');
-      main.innerHTML = '';
-      categorias.forEach(cat => {
-        const prods = productos.filter(p => p.categoria_id === cat.id);
-        if (!prods.length) return;
+			// ── MENÚ ──
+			function buildMenu() {
+				const main = document.getElementById('mainContent');
+				main.innerHTML = '';
+				categorias.forEach(cat => {
+					const prods = productos.filter(p => p.categoria_id === cat.id);
+					if (!prods.length) return;
 
-        const section = document.createElement('div');
-        section.className = 'category-section';
-        section.id = `cat-${cat.id}`;
-        section.innerHTML = `
-          <div class="category-header">
-            <h2 class="category-title">${cat.emoji || ''} ${cat.nombre}</h2>
-            <div class="category-line"></div>
-          </div>
-        `;
+					const section = document.createElement('div');
+					section.className = 'category-section';
+					section.id = `cat-${cat.id}`;
+					section.innerHTML = `
+					<div class="category-header">
+						<h2 class="category-title">${cat.emoji || ''} ${cat.nombre}</h2>
+						<div class="category-line"></div>
+					</div>
+					`;
 
-        const grid = document.createElement('div');
-        grid.className = 'products-grid';
+					const grid = document.createElement('div');
+					grid.className = 'products-grid';
 
-        prods.forEach(p => {
-          const tieneOpciones = p.atributos &&
-            (p.atributos.toppings_platino?.length || p.atributos.toppings_premium?.length || p.atributos.salsas?.length);
+					prods.forEach(p => {
+						const tieneOpciones = p.atributos &&
+						(p.atributos.toppings_platino?.length || p.atributos.toppings_premium?.length || p.atributos.salsas?.length);
 
-          const card = document.createElement('div');
-          card.className = 'product-card';
-          card.style.cursor = 'pointer';
+						const card = document.createElement('div');
+						card.className = 'product-card';
+						card.style.cursor = 'pointer';
 
-          const imgHtml = p.imagen_url
-            ? `<img src="${p.imagen_url}" alt="${p.nombre}" class="card-img">`
-            : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:40px;">🌭</div>`;
+						const imgHtml = p.imagen_url
+						? `<img src="${p.imagen_url}" alt="${p.nombre}" class="card-img">`
+						: `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:40px;">🌭</div>`;
 
-          card.innerHTML = `
-            <div class="card-img-wrap">
-              ${imgHtml}
-              <button class="card-add-btn" title="${tieneOpciones ? 'Personalizar' : 'Agregar'}">+</button>
-            </div>
-            <div class="card-body">
-              <div class="card-name">${p.nombre}</div>
-              <div class="card-price">$${p.precio_numerico.toLocaleString('es-CO')}</div>
-              ${p.descripcion ? `<div style="font-size:11px;color:#888;margin-top:4px;">${p.descripcion}</div>` : ''}
-              ${tieneOpciones ? '<div style="font-size:10px;color:#FFD700;margin-top:4px;letter-spacing:0.5px;">Toca para personalizar</div>' : ''}
-            </div>
-          `;
+						card.innerHTML = `
+						<div class="card-img-wrap">
+							${imgHtml}
+							<button class="card-add-btn" title="${tieneOpciones ? 'Personalizar' : 'Agregar'}">+</button>
+						</div>
+						<div class="card-body">
+							<div class="card-name">${p.nombre}</div>
+							<div class="card-price">$${p.precio_numerico.toLocaleString('es-CO')}</div>
+							${p.descripcion ? `<div style="font-size:11px;color:#888;margin-top:4px;">${p.descripcion}</div>` : ''}
+							${tieneOpciones ? '<div style="font-size:10px;color:#FFD700;margin-top:4px;letter-spacing:0.5px;">Toca para personalizar</div>' : ''}
+						</div>
+						`;
 
-          // Click en la card o en el botón
-          card.addEventListener('click', () => {
-            if (tieneOpciones) {
-              openCustomModal(p.id);
-            } else {
-              // Producto simple sin opciones — agregar directo
-              const existing = cart.find(i => i.cartKey === p.id);
-              if (existing) existing.cantidad++;
-              else cart.push({ cartKey: p.id, id: p.id, name: p.nombre, price: p.precio_numerico, cantidad: 1, descripcion: '' });
-              saveCartToStorage(); updateCartUI();
-              const btn = card.querySelector('.card-add-btn');
-              btn.textContent = '✓';
-              btn.style.background = '#00cc66';
-              setTimeout(() => { btn.textContent = '+'; btn.style.background = '#FF0000'; }, 800);
-            }
-          });
+						// Click en la card o en el botón
+						card.addEventListener('click', () => {
+							if (tieneOpciones) {
+								openCustomModal(p.id);
+							} else {
+								// Producto simple sin opciones — agregar directo
+								const existing = cart.find(i => i.cartKey === p.id);
+								if (existing) existing.cantidad++;
+								else cart.push({ cartKey: p.id, id: p.id, name: p.nombre, price: p.precio_numerico, cantidad: 1, descripcion: '' });
+								saveCartToStorage(); updateCartUI();
+								const btn = card.querySelector('.card-add-btn');
+								btn.textContent = '✓';
+								btn.style.background = '#00cc66';
+								setTimeout(() => { btn.textContent = '+'; btn.style.background = '#FF0000'; }, 800);
+							}
+						});
 
-          grid.appendChild(card);
-        });
+						grid.appendChild(card);
+					});
 
-        section.appendChild(grid);
-        main.appendChild(section);
-      });
-    }
+					section.appendChild(grid);
+					main.appendChild(section);
+				});
+			}
 
-    // ── SCROLL ──
-    function initScrollEffects() {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const catId = entry.target.id.replace('cat-', '');
-            const cat = categorias.find(c => c.id === catId);
-            if (!cat) return;
-            document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
-            document.querySelectorAll('.sidebar-link').forEach(btn => {
-              if (btn.textContent.trim().includes(cat.nombre)) btn.classList.add('active');
-            });
-          }
-        });
-      }, { rootMargin: '-30% 0px -60% 0px' });
-      document.querySelectorAll('.category-section').forEach(s => observer.observe(s));
-    }
+			// ── SCROLL ──
+			function initScrollEffects() {
+				const observer = new IntersectionObserver((entries) => {
+					entries.forEach(entry => {
+						if (entry.isIntersecting) {
+							const catId = entry.target.id.replace('cat-', '');
+							const cat = categorias.find(c => c.id === catId);
+							if (!cat) return;
+							document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+							document.querySelectorAll('.sidebar-link').forEach(btn => {
+								if (btn.textContent.trim().includes(cat.nombre)) btn.classList.add('active');
+							});
+						}
+					});
+				}, { rootMargin: '-30% 0px -60% 0px' });
+				document.querySelectorAll('.category-section').forEach(s => observer.observe(s));
+			}
 
-    // ── EVENTOS ──
-    document.getElementById('menuToggle').addEventListener('click', () => {
-      document.getElementById('sidebar').classList.toggle('open');
-      document.getElementById('overlay').classList.toggle('open');
-    });
-    document.getElementById('closeMenu').addEventListener('click', () => {
-      document.getElementById('sidebar').classList.remove('open');
-      document.getElementById('overlay').classList.remove('open');
-    });
-    document.getElementById('overlay').addEventListener('click', () => {
-      document.getElementById('sidebar').classList.remove('open');
-      document.getElementById('cartSidebar').classList.remove('open');
-      document.getElementById('overlay').classList.remove('open');
-    });
+			// ── EVENTOS ──
+			document.getElementById('menuToggle').addEventListener('click', () => {
+				document.getElementById('sidebar').classList.toggle('open');
+				document.getElementById('overlay').classList.toggle('open');
+			});
+	
+			document.getElementById('closeMenu').addEventListener('click', () => {
+				document.getElementById('sidebar').classList.remove('open');
+				document.getElementById('overlay').classList.remove('open');
+			});
+			
+			document.getElementById('overlay').addEventListener('click', () => {
+				document.getElementById('sidebar').classList.remove('open');
+				document.getElementById('cartSidebar').classList.remove('open');
+				document.getElementById('overlay').classList.remove('open');
+			});
 
-    window.addEventListener('DOMContentLoaded', init);
-  </script>
-</body>
+			window.addEventListener('DOMContentLoaded', init);
+		</script>
+	</body>
 </html>
